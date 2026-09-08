@@ -1,26 +1,39 @@
 export const profile = {
   name: 'Alexander Makletsov',
   shortName: 'AM',
-  role: 'Backend & Telegram Bot Developer',
+  role: 'Junior Python Backend Developer',
   email: 'tegmore@icloud.com',
   location: 'Moscow, Russia · Remote',
-  intro: 'I build Telegram bots, APIs, and automations. I quickly turn ideas into working prototypes and take them through deployment.',
-  about: 'Junior backend developer focused on Python, the Telegram Bot API, and third-party integrations. I grow my expertise through hands-on projects: designing bot flows, connecting APIs and databases, testing, and improving the result.',
+  intro: 'I build APIs, integrations, automations, and small backend services for real business workflows. I turn repetitive tasks into simple, reliable, deployable tools.',
+  about: 'Junior Python backend developer focused on practical APIs, integrations, automations, and small web services. I design data flows, connect external systems, build database-backed applications, and turn manual processes into clear, maintainable solutions. Currently expanding my backend stack with PostgreSQL, SQLAlchemy, Docker, authentication, webhooks, and deployment workflows.',
   stats: [
     { value: 'Python', label: 'primary language' },
-    { value: 'Bots', label: 'Telegram automation' },
-    { value: 'API', label: 'integrations & backend' }
+    { value: 'APIs', label: 'integrations & services' },
+    { value: 'MVPs', label: 'automation & delivery' }
   ],
-  services: ['Telegram bots', 'REST APIs', 'Automation', 'Prototyping'],
+  services: [
+    'Python backend development',
+    'FastAPI & REST APIs',
+    'API integrations',
+    'Webhooks & event processing',
+    'Workflow automation',
+    'Database-backed CRUD apps',
+    'Authentication & access control',
+    'Docker & deployment workflows',
+    'Bug fixes & feature development',
+    'Telegram bots & notifications'
+  ],
   experience: [
-    { period: '2026 — Present', company: 'Independent Practice', role: 'Telegram Bots & Automation', text: 'I build bots for notifications, lead collection, and recurring tasks, using commands, inline keyboards, and external APIs.' },
-    { period: '2026', company: 'Personal Projects', role: 'Backend Development', text: 'I develop small REST APIs with routing, input validation, error handling, and database integration.' },
-    { period: '2025 — Present', company: 'Project-Based Learning', role: 'Development & Deployment', text: 'I learn backend development through practice: Git and GitHub, Python, API integrations, and post-deployment application testing.' }
+    { period: '2026 — Present', company: 'Independent Practice', role: 'Python Backend Development', text: 'I build small backend solutions for business workflows, including REST APIs, data validation, database-backed services, integrations, and automated processes. I focus on clear scope, maintainable code, and deployable MVPs.' },
+    { period: '2026 — Present', company: 'Personal Projects', role: 'API Integrations & Automation', text: 'I create Python workflows that collect, transform, and route data between services using HTTP APIs, JSON payloads, webhooks, scheduled tasks, and notification channels.' },
+    { period: '2025 — Present', company: 'Project-Based Learning', role: 'Backend Engineering Practice', text: 'I develop hands-on projects with Python, FastAPI, REST APIs, Git and GitHub, while expanding into PostgreSQL, SQLAlchemy, Docker, authentication, and deployment.' }
   ],
   projects: [
-    { type: 'Telegram Bot', title: 'LeadFlow', text: 'A lead-capture bot with a service-selection flow, contact collection, confirmation, and administrator notifications.', metric: 'Python · Telegram Bot API' },
-    { type: 'Automation', title: 'NotifyHub', text: 'A notification bot that receives events from an external API, filters them, and delivers messages to Telegram.', metric: 'API · HTTP · JSON' },
-    { type: 'Backend API', title: 'Task API', text: 'A small REST API for task management with CRUD operations, input validation, and error handling.', metric: 'Python · FastAPI · SQL' }
+    { type: 'Backend API', title: 'Lead Intake API', text: 'A backend service for collecting leads, validating contact data, storing requests, and routing notifications to the right person.', metric: 'Python · FastAPI · REST API' },
+    { type: 'Automation', title: 'Automation Pipeline', text: 'A Python workflow that receives data from external services, filters and transforms it, then triggers the required actions.', metric: 'HTTP · JSON · Integrations' },
+    { type: 'Backend API', title: 'Task Management API', text: 'A REST API for task management with CRUD operations, input validation, error handling, and database integration.', metric: 'FastAPI · SQL · CRUD' },
+    { type: 'Webhooks', title: 'Webhook Processor', text: 'A service for receiving and processing external events with structured payload handling, validation, and retry-ready architecture.', metric: 'Webhooks · Events · APIs' },
+    { type: 'Telegram Bot', title: 'Telegram Notification Bot', text: 'A notification interface for backend workflows and incoming events, including commands, inline buttons, and external API calls.', metric: 'Python · Telegram Bot API' }
   ],
   social: [
     { label: 'Telegram', url: 'https://t.me/g7273635' },
