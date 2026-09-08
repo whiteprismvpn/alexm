@@ -8,10 +8,7 @@ const sections = [
   { id: 'work', label: 'Projects', number: '04' },
   { id: 'contact', label: 'Contact', number: '05' }
 ];
-const skillGroups = [
-  { label: 'Building with', skills: ['Python', 'FastAPI', 'PostgreSQL', 'SQL', 'Telegram Bots', 'REST APIs'] },
-  { label: 'Exploring now', skills: ['Docker', 'SQLAlchemy', 'Authentication', 'Webhooks', 'Cloudflare'] }
-];
+const skills = ['Python', 'FastAPI', 'PostgreSQL', 'SQL', 'Telegram Bots', 'REST APIs', 'Docker', 'SQLAlchemy', 'Authentication', 'Webhooks', 'Cloudflare'];
 ---
 <!doctype html>
 <html lang="en">
@@ -43,16 +40,16 @@ const skillGroups = [
       <section id="about" class="panel about">
         <div class="section-label"><span>02</span><p>About</p></div>
         <div class="about-layout">
-          <h2>{profile.about}</h2>
+          <div class="about-statement">
+            <p>Backend systems for practical workflows, from API integrations to reliable automations.</p>
+          </div>
           <div class="stats">{profile.stats.map((stat) => <div><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div>
         </div>
         <div class="skill-summary" aria-label="Skills">
-          {skillGroups.map((group) => (
-            <div class="skill-group">
-              <p>{group.label}</p>
-              <div class="skill-list">{group.skills.map((skill) => <span>{skill}</span>)}</div>
-            </div>
-          ))}
+          <div class="skill-group">
+            <p>Building with</p>
+            <div class="skill-list">{skills.map((skill) => <span>{skill}</span>)}</div>
+          </div>
         </div>
         <div class="services">{profile.services.map((service, index) => <div><span>0{index + 1}</span><p>{service}</p></div>)}</div>
       </section>
