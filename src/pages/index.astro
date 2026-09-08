@@ -8,6 +8,10 @@ const sections = [
   { id: 'work', label: 'Projects', number: '04' },
   { id: 'contact', label: 'Contact', number: '05' }
 ];
+const skillRows = [
+  ['Python', 'FastAPI', 'PostgreSQL', 'SQL', 'Telegram Bots', 'REST API'],
+  ['Docker', 'Git & GitHub', 'Webhooks', 'Authentication', 'Cloudflare', 'Automation']
+];
 ---
 <!doctype html>
 <html lang="en">
@@ -43,6 +47,18 @@ const sections = [
           <div class="stats">{profile.stats.map((stat) => <div><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div>
         </div>
         <div class="services">{profile.services.map((service, index) => <div><span>0{index + 1}</span><p>{service}</p></div>)}</div>
+        <section class="skills-marquee" aria-labelledby="skills-heading">
+          <div class="skills-heading"><span>03</span><p id="skills-heading">Selected skills</p></div>
+          <p class="skills-intro">Learning fast, building practical backend and automation projects.</p>
+          {skillRows.map((skills, rowIndex) => (
+            <div class:list={['skill-track', rowIndex === 0 ? 'skill-track-forward' : 'skill-track-backward']}>
+              <div class="skill-row" aria-hidden="true">
+                {[...skills, ...skills].map((skill) => <span>{skill}</span>)}
+              </div>
+            </div>
+          ))}
+          <p class="sr-only">{skillRows.flat().join(', ')}</p>
+        </section>
       </section>
       <section id="experience" class="panel experience">
         <div class="section-label"><span>03</span><p>Experience</p></div>
