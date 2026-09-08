@@ -2,7 +2,7 @@ export const profile = {
   name: 'Alexander Makletsov',
   shortName: 'AM',
   role: 'Backend & Telegram Bot Developer',
-  email: 'hello@example.com',
+  email: 'tegmore@icloud.com',
   location: 'Moscow, Russia · Remote',
   intro: 'I build Telegram bots, APIs, and automations. I quickly turn ideas into working prototypes and take them through deployment.',
   about: 'Junior backend developer focused on Python, the Telegram Bot API, and third-party integrations. I grow my expertise through hands-on projects: designing bot flows, connecting APIs and databases, testing, and improving the result.',
