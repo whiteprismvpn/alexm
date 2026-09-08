@@ -18,10 +18,7 @@ const sections = [
     <title>{profile.name} — {profile.role}</title>
   </head>
   <body>
-    <header class="site-header">
-      <a class="monogram" href="#top" aria-label="Back to top">{profile.shortName}</a>
-      <a class="header-mail" href={`mailto:${profile.email}`}>Get in touch ↗</a>
-    </header>
+    <a class="contact-float" href="#contact" aria-label="Go to contact section">Get in touch <span>↗</span></a>
     <nav class="side-nav" aria-label="Page navigation">
       {sections.map((section) => <a href={`#${section.id}`} data-nav={section.id} aria-label={section.label}><i></i><span>{section.number} / {section.label}</span></a>)}
     </nav>
