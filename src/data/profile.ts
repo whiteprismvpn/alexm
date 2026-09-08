@@ -24,7 +24,6 @@ export const profile = {
     { type: 'Backend API', title: 'Task API', text: 'Небольшой REST API для управления задачами: CRUD, валидация входных данных и обработка ошибок.', metric: 'Python · FastAPI · SQL' }
   ],
   social: [
-    { label: 'GitHub', url: 'https://github.com/whiteprismvpn' },
     { label: 'Telegram', url: '#' },
     { label: 'LinkedIn', url: '#' }
   ]
