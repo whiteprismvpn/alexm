@@ -1,30 +1,29 @@
 export const profile = {
-  name: 'Александр Маклецов',
+  name: 'Alexander Makletsov',
   shortName: 'AM',
   role: 'Backend & Telegram Bot Developer',
-  availability: 'Открыт к junior-проектам',
   email: 'hello@example.com',
-  location: 'Москва · Удалённо',
-  intro: 'Собираю Telegram-ботов, API и автоматизации. Быстро превращаю идею в работающий прототип и довожу его до деплоя.',
-  about: 'Начинающий backend-разработчик с фокусом на Python, Telegram Bot API и интеграции. Развиваю практику через собственные проекты: проектирую сценарии ботов, подключаю API и базы данных, тестирую и улучшаю результат.',
+  location: 'Moscow, Russia · Remote',
+  intro: 'I build Telegram bots, APIs, and automations. I quickly turn ideas into working prototypes and take them through deployment.',
+  about: 'Junior backend developer focused on Python, the Telegram Bot API, and third-party integrations. I grow my expertise through hands-on projects: designing bot flows, connecting APIs and databases, testing, and improving the result.',
   stats: [
-    { value: 'Python', label: 'основной язык' },
-    { value: 'Bots', label: 'Telegram-автоматизация' },
-    { value: 'API', label: 'интеграции и backend' }
+    { value: 'Python', label: 'primary language' },
+    { value: 'Bots', label: 'Telegram automation' },
+    { value: 'API', label: 'integrations & backend' }
   ],
-  services: ['Telegram-боты', 'REST API', 'Автоматизация', 'Прототипирование'],
+  services: ['Telegram bots', 'REST APIs', 'Automation', 'Prototyping'],
   experience: [
-    { period: '2026 — сейчас', company: 'Самостоятельная практика', role: 'Telegram-боты и автоматизация', text: 'Создаю ботов для уведомлений, приёма заявок и повторяющихся задач; работаю с командами, inline-кнопками и внешними API.' },
-    { period: '2026', company: 'Pet-projects', role: 'Backend-разработка', text: 'Собираю небольшие REST API: маршруты, валидация данных, обработка ошибок и работа с базой данных.' },
-    { period: '2025 — сейчас', company: 'Обучение через проекты', role: 'Разработка и деплой', text: 'Изучаю backend на практике: Git/GitHub, Python, API-интеграции и проверка работы приложений после публикации.' }
+    { period: '2026 — Present', company: 'Independent Practice', role: 'Telegram Bots & Automation', text: 'I build bots for notifications, lead collection, and recurring tasks, using commands, inline keyboards, and external APIs.' },
+    { period: '2026', company: 'Personal Projects', role: 'Backend Development', text: 'I develop small REST APIs with routing, input validation, error handling, and database integration.' },
+    { period: '2025 — Present', company: 'Project-Based Learning', role: 'Development & Deployment', text: 'I learn backend development through practice: Git and GitHub, Python, API integrations, and post-deployment application testing.' }
   ],
   projects: [
-    { type: 'Telegram Bot', title: 'LeadFlow', text: 'Бот для приёма заявок: сценарий выбора услуги, сбор контактов, подтверждение и уведомление администратора.', metric: 'Python · Telegram Bot API' },
-    { type: 'Automation', title: 'NotifyHub', text: 'Бот-уведомитель: получает события из внешнего API, фильтрует их и отправляет сообщения в Telegram.', metric: 'API · HTTP · JSON' },
-    { type: 'Backend API', title: 'Task API', text: 'Небольшой REST API для управления задачами: CRUD, валидация входных данных и обработка ошибок.', metric: 'Python · FastAPI · SQL' }
+    { type: 'Telegram Bot', title: 'LeadFlow', text: 'A lead-capture bot with a service-selection flow, contact collection, confirmation, and administrator notifications.', metric: 'Python · Telegram Bot API' },
+    { type: 'Automation', title: 'NotifyHub', text: 'A notification bot that receives events from an external API, filters them, and delivers messages to Telegram.', metric: 'API · HTTP · JSON' },
+    { type: 'Backend API', title: 'Task API', text: 'A small REST API for task management with CRUD operations, input validation, and error handling.', metric: 'Python · FastAPI · SQL' }
   ],
   social: [
-    { label: 'Telegram', url: '#' },
-    { label: 'LinkedIn', url: '#' }
+    { label: 'Telegram', url: 'https://t.me/g7273635' },
+    { label: 'WhatsApp: @tegmore', url: '#' }
   ]
 } as const;
