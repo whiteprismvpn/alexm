@@ -5,7 +5,7 @@ export const profile = {
   email: 'tegmore@icloud.com',
   location: 'Moscow, Russia · Remote',
   intro: 'I build APIs, integrations, automations, and small backend services for real business workflows. I turn repetitive tasks into simple, reliable, deployable tools.',
-  about: 'Junior Python backend developer focused on practical APIs, integrations, automations, and small web services. I design data flows, connect external systems, build database-backed applications, and turn manual processes into clear, maintainable solutions. Currently expanding my backend stack with PostgreSQL, SQLAlchemy, Docker, authentication, webhooks, and deployment workflows.',
+  about: 'Junior Python backend developer building practical APIs, Telegram bots, and automation tools. I turn repetitive workflows into simple, reliable services that connect data, databases, and external systems.',
   stats: [
     { value: 'Python', label: 'primary language' },
     { value: 'APIs', label: 'integrations & services' },
