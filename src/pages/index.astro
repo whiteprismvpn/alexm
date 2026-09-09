@@ -35,7 +35,7 @@ const skills = [
     <title>{profile.name} — {profile.role}</title>
   </head>
 
-  <body style="cursor: none;">
+  <body style="cursor: none; background-color: var(--paper);">
     <div class="scroll-progress"></div>
     <div class="custom-cursor"></div>
     <div class="lang-switcher-simple">
@@ -61,7 +61,8 @@ const skills = [
 
     <main>
       <section id="top" class="hero panel">
-        <div class="hero-grid reveal active">
+        <!-- Убрал класс reveal, чтобы контент был виден ВСЕГДА -->
+        <div class="hero-grid" style="opacity: 1 !important; visibility: visible !important; transform: none !important;">
           <p class="kicker">{profile.location}</p>
           <p class="hero-index">01 / 05</p>
           <h1>{profile.role}</h1>
