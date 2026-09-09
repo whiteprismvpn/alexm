@@ -30,8 +30,8 @@ const skills = [
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content={\`\${profile.name} — \${profile.role}\`} />
-    <title>\${profile.name} — \${profile.role}</title>
+    <meta name="description" content={`${profile.name} — ${profile.role}`} />
+    <title>{profile.name} — {profile.role}</title>
   </head>
 
   <body>
@@ -42,9 +42,9 @@ const skills = [
     <nav class="side-nav" aria-label="Навигация по странице">
       {
         sections.map((section) => (
-          <a href={\`#\${section.id}\`} aria-label={section.label}>
+          <a href={`#${section.id}`} aria-label={section.label}>
             <i></i>
-            <span>\${section.number} / {section.label}</span>
+            <span>{section.number} / {section.label}</span>
           </a>
         ))
       }
@@ -62,10 +62,10 @@ const skills = [
             <p>{profile.intro}</p>
             <a class="round-link" href="#work" aria-label="Перейти к проектам">↓</a>
           </div>
-        </div>
 
-        <div class="hero-shape shape-one"></div>
-        <div class="hero-shape shape-two"></div>
+          <div class="hero-shape shape-one"></div>
+          <div class="hero-shape shape-two"></div>
+        </div>
       </section>
 
       <section id="about" class="panel about">
@@ -146,7 +146,7 @@ const skills = [
         <div class="project-list">
           {
             profile.projects.map((project, index) => (
-              <article class={\`project project-\${index + 1}\`}>
+              <article class={`project project-${index + 1}`}>
                 <div class="project-top">
                   <span>{project.type}</span>
                   <span>0{index + 1}</span>
@@ -178,8 +178,8 @@ const skills = [
             Давайте обсудим.
           </h2>
 
-          <a class="email-link" href={\`mailto:\${profile.email}\`}>
-            \${profile.email} <span>↗</span>
+          <a class="email-link" href={`mailto:${profile.email}`}>
+            {profile.email} <span>↗</span>
           </a>
         </div>
 
