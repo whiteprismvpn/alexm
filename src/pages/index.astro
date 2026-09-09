@@ -35,7 +35,7 @@ const skills = [
   </head>
 
   <body>
-    <div class="lang-switcher-text">
+    <div class="lang-switcher-simple">
       <a href="/" class="lang-link active">EN</a>
       <span class="lang-sep">/</span>
       <a href="/ru" class="lang-link">ru</a>
@@ -204,27 +204,22 @@ const skills = [
     </main>
 
     <style>
-      .lang-switcher-text {
+      .lang-switcher-simple {
         position: fixed;
         top: 20px;
         left: 20px;
         z-index: 100;
-        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-        font-size: 11px;
-        font-weight: 800;
-        text-transform: uppercase;
+        font-size: 13px;
+        font-weight: 500;
       }
       .lang-link {
         text-decoration: none;
         color: var(--muted);
-        transition: all 0.2s ease;
+        transition: color 0.2s ease;
       }
       .lang-link.active {
         color: var(--ink);
-        text-transform: uppercase;
-      }
-      .lang-link:not(.active) {
-        text-transform: lowercase;
+        font-weight: 700;
       }
       .lang-sep {
         margin: 0 4px;
