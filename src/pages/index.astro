@@ -73,7 +73,6 @@ const skills = [
         </div>
       </section>
 
-
       <section id="about" class="panel about">
         <div class="section-label reveal"><span>02</span><p>About</p></div>
         <div class="about-layout reveal">
@@ -107,10 +106,7 @@ const skills = [
           ))}
         </div>
 
-        <!-- Terminal section removed as per user request -->
-        <div class="about-services-footer">
-           <!-- Content continues... -->
-        </div>
+        <div class="about-services-footer"></div>
       </section>
 
       <section id="experience" class="panel experience">
@@ -187,7 +183,6 @@ const skills = [
       function initDataFlow() {
         const main = document.getElementById('main-content');
         if (!main) return;
-        
         const canvas = document.createElement('canvas');
         canvas.id = 'data-flow-canvas';
         canvas.style.position = 'fixed';
@@ -198,22 +193,17 @@ const skills = [
         canvas.style.pointerEvents = 'none';
         canvas.style.zIndex = '-1';
         document.body.appendChild(canvas);
-        
         const ctx = canvas.getContext('2d');
         let width, height;
-        
         function resize() {
           width = canvas.width = window.innerWidth;
           height = canvas.height = window.innerHeight;
         }
         window.addEventListener('resize', resize);
         resize();
-        
         const particles = [];
         class Particle {
-          constructor() {
-            this.reset();
-          }
+          constructor() { this.reset(); }
           reset() {
             this.x = Math.random() * width;
             this.y = Math.random() * height;
@@ -236,15 +226,10 @@ const skills = [
             ctx.fill();
           }
         }
-        
         for (let i = 0; i < 50; i++) particles.push(new Particle());
-        
         function animate() {
           ctx.clearRect(0, 0, width, height);
-          particles.forEach(p => {
-            p.update();
-            p.draw();
-          });
+          particles.forEach(p => { p.update(); p.draw(); });
           requestAnimationFrame(animate);
         }
         animate();
@@ -328,7 +313,6 @@ const skills = [
         function renderArchitecture(projTitle) {
           const arch = projectArchitectures[projTitle];
           if (!arch) return `<p>System architecture: High-availability backend with scalable microservices and optimized DB queries.</p>`;
-
           let svg = `<svg viewBox="0 0 450 250" style="width:100%; height:auto; max-width:500px; margin: 20px auto; display:block; background:#1c1c1c; border-radius:12px; padding:20px; box-sizing:border-box; color:#fff; font-family:monospace">`;
           arch.edges.forEach(edge => {
             const fromNode = arch.nodes.find(n => n.id === edge.from);
@@ -402,227 +386,6 @@ const skills = [
       document.addEventListener('astro:page-load', () => {
         initNav(); initCursor(); initReveal(); initProgress(); initModals(); initDataFlow();
       });
-    </script>
-
-
-
-
-        const links = Array.from(document.querySelectorAll('[data-nav]'));
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              links.forEach((link) => {
-                link.classList.toggle('active', link.dataset.nav === entry.target.id);
-              });
-              const nav = document.querySelector('.side-nav');
-              if (nav) {
-                const bgColor = window.getComputedStyle(entry.target).backgroundColor;
-                nav.style.backgroundColor = bgColor;
-              }
-            }
-          });
-        }, { threshold: 0.45 });
-        document.querySelectorAll('main section[id]').forEach((section) => observer.observe(section));
-      }
-      function initCursor() {
-        const cursor = document.querySelector('.custom-cursor');
-        if (!cursor) return;
-        document.addEventListener('mousemove', (e) => {
-          cursor.style.left = e.clientX + 'px';
-          cursor.style.top = e.clientY + 'px';
-        });
-        const hoverables = document.querySelectorAll('a, button, .round-link, .project, .design-pill');
-        hoverables.forEach(el => {
-          el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-          el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-        });
-      }
-      function initReveal() {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('active');
-            }
-          });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-      }
-      function initProgress() {
-        window.addEventListener('scroll', () => {
-          const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-          const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-          const scrolled = (winScroll / height) * 100;
-          const bar = document.querySelector('.scroll-progress');
-          if(bar) bar.style.width = scrolled + '%';
-        });
-      }
-      function initTerminal() {
-        const input = document.getElementById('terminal-input');
-        const body = document.getElementById('terminal-body');
-        if(!input || !body) return;
-        const commands = {
-          'help': 'Available commands: <span style="color:#50fa7b">skills</span>, <span style="color:#50fa7b">contact</span>, <span style="color:#50fa7b">clear</span>, <span style="color:#50fa7b">about</span>',
-          'skills': 'Expertise in Python, FastAPI, PostgreSQL, Docker, and Cloudflare Workers.',
-          'contact': 'Email: alex@example.com | GitHub: @whiteprismvpn',
-          'about': 'Backend Engineer specializing in high-performance APIs and reliable infrastructure.',
-          'clear': 'CLEAR'
-        };
-        async function typeText(text, isCommand = false) {
-          const line = document.createElement('div');
-          line.className = 'terminal-line';
-          if (isCommand) {
-            line.innerHTML = `<span class="terminal-prompt">alexm@MacBook-Pro ~ %</span> `;
-          }
-          body.appendChild(line);
-          
-          if (text === 'CLEAR') {
-            body.innerHTML = '';
-            return;
-          }
-
-          const span = document.createElement('span');
-          line.appendChild(span);
-          
-          for (let i = 0; i < text.length; i++) {
-            span.innerHTML += text.charAt(i);
-            body.scrollTop = body.scrollHeight;
-            await new Promise(r => setTimeout(r, 20));
-          }
-        }
-        input.addEventListener('keydown', async (e) => {
-          if (e.key === 'Enter') {
-            const val = input.value.toLowerCase().trim();
-            const originalValue = input.value;
-            input.value = '';
-            
-            await typeText(originalValue, true);
-            
-            if (val === 'clear') {
-              body.innerHTML = '';
-            } else if (commands[val]) {
-              await typeText(commands[val]);
-            } else if (val !== '') {
-              await typeText(`<span style="color:#ff5f56">Command not found: ${val}</span>`);
-            }
-          }
-        });
-      }
-    <script>
-      // ... other init functions ...
-      function initModals() {
-        const overlay = document.getElementById('modal-overlay');
-        const close = document.getElementById('modal-close');
-        const body = document.getElementById('modal-body');
-        if(!overlay || !close || !body) return;
-
-        const projectArchitectures = {
-          'Project Title': {
-            nodes: [
-              { id: 'client', label: 'Client', x: 50, y: 100, desc: 'Frontend application / Mobile app' },
-              { id: 'api', label: 'FastAPI', x: 200, y: 100, desc: 'High-performance Python API' },
-              { id: 'db', label: 'PostgreSQL', x: 350, y: 150, desc: 'Relational data storage' },
-              { id: 'cache', label: 'Redis', x: 350, y: 50, desc: 'Distributed caching' },
-            ],
-            edges: [
-              { from: 'client', to: 'api' },
-              { from: 'api', to: 'db' },
-              { from: 'api', to: 'cache' },
-            ]
-          }
-        };
-
-        function renderArchitecture(projTitle) {
-          const arch = projectArchitectures[projTitle];
-          if (!arch) return `<p>System architecture: High-availability backend with scalable microservices and optimized DB queries.</p>`;
-
-          let svg = `<svg viewBox="0 0 450 250" style="width:100%; height:auto; max-width:500px; margin: 20px auto; display:block; background:#1c1c1c; border-radius:12px; padding:20px; box-sizing:border-box; color:#fff; font-family:monospace">`;
-          
-          arch.edges.forEach(edge => {
-            const fromNode = arch.nodes.find(n => n.id === edge.from);
-            const toNode = arch.nodes.find(n => n.id === edge.to);
-            svg += `<line x1="${fromNode.x}" y1="${fromNode.y}" x2="${toNode.x}" y2="${toNode.y}" stroke="#444" stroke-width="2" marker-end="url(#arrowhead)" />`;
-          });
-
-          arch.nodes.forEach(node => {
-            svg += `
-              <g class="arch-node" data-desc="${node.desc}" style="cursor:pointer">
-                <rect x="${node.x - 40}" y="${node.y - 20}" width="80" height="40" rx="5" fill="#333" stroke="#555" stroke-width="1" />
-                <text x="${node.x}" y="${node.y + 5}" text-anchor="middle" fill="#fff" font-size="12px">${node.label}</text>
-              </g>`;
-          });
-
-          svg += `<defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#444" /></marker></defs>`;
-          svg += `</svg>`;
-
-          return `<div class="arch-container">${svg}<div id="arch-desc" style="text-align:center; min-height:40px; font-size:14px; color:var(--muted); margin-top:10px;">Hover over a component to see details</div></div>`;
-        }
-
-        document.querySelectorAll('.design-pill').forEach(pill => {
-          pill.addEventListener('click', (e) => {
-            const title = pill.dataset.project;
-            
-            // create popup instead of modal
-            const popup = document.createElement('div');
-            popup.className = 'design-popup';
-            popup.innerHTML = `
-              <div class="popup-header">
-                <span>Architecture: ${title}</span>
-                <span class="popup-close" style="cursor:pointer">×</span>
-              </div>
-              <div class="popup-body">
-                ${renderArchitecture(title)}
-              </div>
-            `;
-            
-            // Position popup relative to button
-            const rect = pill.getBoundingClientRect();
-            popup.style.position = 'fixed';
-            popup.style.top = `${rect.bottom + window.scrollY + 10}px`;
-            popup.style.left = `${rect.left + window.scrollX}px`;
-            popup.style.zIndex = '1000';
-            
-            document.body.appendChild(popup);
-            
-            // Add interactivity to the SVG inside popup
-            const nodes = popup.querySelectorAll('.arch-node');
-            const descBox = popup.querySelector('#arch-desc');
-            nodes.forEach(node => {
-              node.addEventListener('mouseenter', () => {
-                const desc = node.getAttribute('data-desc');
-                descBox.innerText = desc;
-                descBox.style.color = 'var(--acid)';
-                node.querySelector('rect').setAttribute('stroke', 'var(--acid)');
-                node.querySelector('rect').setAttribute('fill', '#444');
-              });
-              node.addEventListener('mouseleave', () => {
-                descBox.innerText = 'Hover over a component to see details';
-                descBox.style.color = 'var(--muted)';
-                node.querySelector('rect').setAttribute('stroke', '#555');
-                node.querySelector('rect').setAttribute('fill', '#333');
-              });
-            });
-
-            popup.querySelector('.popup-close').addEventListener('click', () => popup.remove());
-            
-            // Close on click outside
-            const closePopup = (event) => {
-              if (!popup.contains(event.target) && event.target !== pill) {
-                popup.remove();
-                document.removeEventListener('mousedown', closePopup);
-              }
-            };
-            document.addEventListener('mousedown', closePopup);
-          });
-        });
-        close.addEventListener('click', () => overlay.classList.remove('active'));
-        overlay.addEventListener('click', (e) => { if(e.target === overlay) overlay.classList.remove('active'); });
-      }
-
-      initNav(); initCursor(); initReveal(); initProgress(); initModals(); initDataFlow();
-      document.addEventListener('astro:page-load', () => {
-        initNav(); initCursor(); initReveal(); initProgress(); initModals(); initDataFlow();
-      });
-
     </script>
   </body>
 </html>
