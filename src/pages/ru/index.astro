@@ -35,6 +35,10 @@ const skills = [
   </head>
 
   <body>
+    <div class="top-controls">
+      <a href="/" class="lang-switch">EN</a>
+    </div>
+
     <a class="contact-float" href="#contact" aria-label="Перейти к разделу контактов">
       Связаться <span>↗</span>
     </a>
@@ -42,7 +46,7 @@ const skills = [
     <nav class="side-nav" aria-label="Навигация по странице">
       {
         sections.map((section) => (
-          <a href={`#${section.id}`} aria-label={section.label}>
+          <a href={`#${section.id}`} data-nav={section.id} aria-label={section.label}>
             <i></i>
             <span>{section.number} / {section.label}</span>
           </a>
@@ -196,6 +200,28 @@ const skills = [
         </footer>
       </section>
     </main>
+
+    <style>
+      .top-controls {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
+      }
+      .lang-switch {
+        text-decoration: none;
+        color: var(--black);
+        font-weight: bold;
+        padding: 0.5em 1em;
+        border: 1px solid var(--black);
+        border-radius: 4px;
+        transition: 0.2s ease;
+      }
+      .lang-switch:hover {
+        background: var(--black);
+        color: white;
+      }
+    </style>
 
     <script>
       const links = Array.from(document.querySelectorAll('[data-nav]'));
