@@ -1,3 +1,4 @@
+
 ---
 import { profile } from '../../data/profile.ru';
 import '../../styles/portfolio.css';
@@ -116,7 +117,6 @@ const skills = [
           }
         </div>
         
-        <!-- Terminal section removed as per user request -->
         <div class="about-services-footer">
            <!-- Content continues... -->
         </div>
@@ -242,6 +242,8 @@ const skills = [
     </style>
 
     <script>
+      import { initGridBackground, initCodeRain } from '../../scripts/visual-effects.js';
+
       function initNav() {
         const links = Array.from(document.querySelectorAll('[data-nav]'));
         const observer = new IntersectionObserver((entries) => {
@@ -250,16 +252,12 @@ const skills = [
               links.forEach((link) => {
                 link.classList.toggle('active', link.dataset.nav === entry.target.id);
               });
-              const nav = document.querySelector('.side-nav');
-              if (nav) {
-                const bgColor = window.getComputedStyle(entry.target).backgroundColor;
-                nav.style.backgroundColor = bgColor;
-              }
             }
           });
         }, { threshold: 0.45 });
         document.querySelectorAll('main section[id]').forEach((section) => observer.observe(section));
       }
+
       function initCursor() {
         const cursor = document.querySelector('.custom-cursor');
         if (!cursor) return;
@@ -273,16 +271,16 @@ const skills = [
           el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
         });
       }
+
       function initReveal() {
         const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('active');
-            }
-          });
-        }, { threshold: 0.1 });
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
       }
+
       function initProgress() {
         window.addEventListener('scroll', () => {
           const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
@@ -292,6 +290,7 @@ const skills = [
           if(bar) bar.style.width = scrolled + '%';
         });
       }
+
       function initTerminal() {
         const input = document.getElementById('terminal-input');
         const body = document.getElementById('terminal-body');
@@ -307,7 +306,7 @@ const skills = [
           const line = document.createElement('div');
           line.className = 'terminal-line';
           if (isCommand) {
-            line.innerHTML = `<span class="terminal-prompt">alexm@MacBook-Pro ~ %</span> `;
+            line.innerHTML = \`<span class="terminal-prompt">alexm@MacBook-Pro ~ %</span> \`;
           }
           body.appendChild(line);
           
@@ -338,11 +337,12 @@ const skills = [
             } else if (commands[val]) {
               await typeText(commands[val]);
             } else if (val !== '') {
-              await typeText(`<span style="color:#ff5f56">Команда не найдена: ${val}</span>`);
+              await typeText(\`<span style="color:#ff5f56">Команда не найдена: ${val}</span>\`);
             }
           }
         });
       }
+
       function initModals() {
         const overlay = document.getElementById('modal-overlay');
         const close = document.getElementById('modal-close');
@@ -354,16 +354,25 @@ const skills = [
         document.querySelectorAll('.design-pill').forEach(pill => {
           pill.addEventListener('click', () => {
             const title = pill.dataset.project;
-            body.innerHTML = `<h2 style="margin-top:0">${title}</h2><p>${projectData[title] || 'Системная архитектура: Высокодоступный бэкенд с масштабируемыми микросервисами и оптимизированными запросами к БД.'}</p>`;
+            body.innerHTML = \`<h2 style="margin-top:0">\${title}</h2><p>\${projectData[title] || 'Системная архитектура: Высокодоступный бэкенд с масштабируемыми микросервисами и оптимизированными запросами к БД.'}</p>\`;
             overlay.classList.add('active');
           });
         });
         close.addEventListener('click', () => overlay.classList.remove('active'));
         overlay.addEventListener('click', (e) => { if(e.target === overlay) overlay.classList.remove('active'); });
       }
+
+      function initVisuals() {
+        initGridBackground();
+        initCodeRain();
+      }
+
       initNav(); initCursor(); initReveal(); initProgress(); initTerminal(); initModals();
+      initVisuals();
+
       document.addEventListener('astro:page-load', () => {
         initNav(); initCursor(); initReveal(); initProgress(); initTerminal(); initModals();
+        initVisuals();
       });
     </script>
   </body>
