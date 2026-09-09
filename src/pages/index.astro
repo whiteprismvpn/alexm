@@ -58,7 +58,7 @@ const skills = [
       }
     </nav>
 
-    <main>
+    <main id="main-content">
       <section id="top" class="hero panel">
         <div class="hero-grid reveal">
           <p class="kicker">{profile.location}</p>
@@ -72,6 +72,7 @@ const skills = [
           <div class="hero-shape shape-two"></div>
         </div>
       </section>
+
 
       <section id="about" class="panel about">
         <div class="section-label reveal"><span>02</span><p>About</p></div>
@@ -183,7 +184,73 @@ const skills = [
     </style>
 
     <script>
+      function initDataFlow() {
+        const main = document.getElementById('main-content');
+        if (!main) return;
+        
+        const canvas = document.createElement('canvas');
+        canvas.id = 'data-flow-canvas';
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        canvas.style.pointerEvents = 'none';
+        canvas.style.zIndex = '-1';
+        document.body.appendChild(canvas);
+        
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        
+        function resize() {
+          width = canvas.width = window.innerWidth;
+          height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+        
+        const particles = [];
+        class Particle {
+          constructor() {
+            this.reset();
+          }
+          reset() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
+            this.life = Math.random() * 100 + 50;
+            this.opacity = 0;
+          }
+          update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            this.life--;
+            this.opacity = Math.sin((this.life / 100) * Math.PI) * 0.2;
+            if (this.life <= 0) this.reset();
+          }
+          draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, 1, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(215, 255, 62, ${this.opacity})`;
+            ctx.fill();
+          }
+        }
+        
+        for (let i = 0; i < 50; i++) particles.push(new Particle());
+        
+        function animate() {
+          ctx, ctx.clearRect(0, 0, width, height);
+          particles.forEach(p => {
+            p.update();
+            p.draw();
+          });
+          requestAnimationFrame(animate);
+        }
+        animate();
+      }
       function initNav() {
+
         const links = Array.from(document.querySelectorAll('[data-nav]'));
         const observer = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
@@ -289,23 +356,86 @@ const skills = [
         const close = document.getElementById('modal-close');
         const body = document.getElementById('modal-body');
         if(!overlay || !close || !body) return;
-        const projectData = {
-          'Project Title': 'Architecture: [Client] -> [FastAPI] -> [PostgreSQL]. Used Redis for caching hot data. Implemented JWT for auth.',
+
+        const projectArchitectures = {
+          'Project Title': {
+            nodes: [
+              { id: 'client', label: 'Client', x: 50, y: 100, desc: 'Frontend application / Mobile app' },
+              { id: 'api', label: 'FastAPI', x: 200, y: 100, desc: 'High-performance Python API' },
+              { id: 'db', label: 'PostgreSQL', x: 350, y: 150, desc: 'Relational data storage' },
+              { id: 'cache', label: 'Redis', x: 350, y: 50, desc: 'Distributed caching' },
+            ],
+            edges: [
+              { from: 'client', to: 'api' },
+              { from: 'api', to: 'db' },
+              { from: 'api', to: 'cache' },
+            ]
+          }
         };
+
+        function renderArchitecture(projTitle) {
+          const arch = projectArchitectures[projTitle];
+          if (!arch) return `<p>System architecture: High-availability backend with scalable microservices and optimized DB queries.</p>`;
+
+          let svg = `<svg viewBox="0 0 450 250" style="width:100%; height:auto; max-width:500px; margin: 20px auto; display:block; background:#1c1c1c; border-radius:12px; padding:20px; box-sizing:border-box; color:#fff; font-family:monospace">`;
+          
+          // Edges
+          arch.edges.forEach(edge => {
+            const fromNode = arch.nodes.find(n => n.id === edge.from);
+            const toNode = arch.nodes.find(n => n.id === edge.to);
+            svg += `<line x1="${fromNode.x}" y1="${fromNode.y}" x2="${toNode.x}" y2="${toNode.y}" stroke="#444" stroke-width="2" marker-end="url(#arrowhead)" />`;
+          });
+
+          // Nodes
+          arch.nodes.forEach(node => {
+            svg += `
+              <g class="arch-node" data-desc="${node.desc}" style="cursor:pointer">
+                <rect x="${node.x - 40}" y="${node.y - 20}" width="80" height="40" rx="5" fill="#333" stroke="#555" stroke-width="1" />
+                <text x="${node.x}" y="${node.y + 5}" text-anchor="middle" fill="#fff" font-size="12px">${node.label}</text>
+              </g>`;
+          });
+
+          svg += `<defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#444" /></marker></defs>`;
+          svg += `</svg>`;
+
+          return `<div class="arch-container">${svg}<div id="arch-desc" style="text-align:center; min-height:40px; font-size:14px; color:var(--muted); margin-top:10px;">Hover over a component to see details</div></div>`;
+        }
+
         document.querySelectorAll('.design-pill').forEach(pill => {
           pill.addEventListener('click', () => {
             const title = pill.dataset.project;
-            body.innerHTML = `<h2 style="margin-top:0">${title}</h2><p>${projectData[title] || 'System architecture: High-availability backend with scalable microservices and optimized DB queries.'}</p>`;
+            body.innerHTML = `<h2 style="margin-top:0">${title}</h2>${renderArchitecture(title)}`;
+            
+            // Add interactivity to the SVG
+            const nodes = body.querySelectorAll('.arch-node');
+            const descBox = body.querySelector('#arch-desc');
+            nodes.forEach(node => {
+              node.addEventListener('mouseenter', () => {
+                const desc = node.getAttribute('data-desc');
+                descBox.innerText = desc;
+                descBox.style.color = 'var(--acid)';
+                node.querySelector('rect').setAttribute('stroke', 'var(--acid)');
+                node.querySelector('rect').setAttribute('fill', '#444');
+              });
+              node.addEventListener('mouseleave', () => {
+                descBox.innerText = 'Hover over a component to see details';
+                descBox.style.color = 'var(--muted)';
+                node.querySelector('rect').setAttribute('stroke', '#555');
+                node.querySelector('rect').setAttribute('fill', '#333');
+              });
+            });
+
             overlay.classList.add('active');
           });
         });
         close.addEventListener('click', () => overlay.classList.remove('active'));
         overlay.addEventListener('click', (e) => { if(e.target === overlay) overlay.classList.remove('active'); });
       }
-      initNav(); initCursor(); initReveal(); initProgress(); initTerminal(); initModals();
+      initNav(); initCursor(); initReveal(); initProgress(); initModals(); initDataFlow();
       document.addEventListener('astro:page-load', () => {
-        initNav(); initCursor(); initReveal(); initProgress(); initTerminal(); initModals();
+        initNav(); initCursor(); initReveal(); initProgress(); initModals(); initDataFlow();
       });
+
     </script>
   </body>
 </html>
