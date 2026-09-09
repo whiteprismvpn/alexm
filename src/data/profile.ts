@@ -3,7 +3,7 @@ export const profile = {
   shortName: 'AM',
   role: 'Junior Python Backend Developer',
   email: 'tegmore@icloud.com',
-  location: 'Moscow, Russia · Remote',
+  location: 'Dallas, US · Remote',
   intro: 'I build APIs, integrations, automations, and small backend services for real business workflows. I turn repetitive tasks into simple, reliable, deployable tools.',
   about: 'Junior Python backend developer building practical APIs, Telegram bots, and automation tools. I turn repetitive workflows into simple, reliable services that connect data, databases, and external systems.',
   stats: [
