@@ -35,6 +35,13 @@ const skills = [
   </head>
 
   <body>
+    <div class="language-switcher" aria-label="Language selector">
+      <button class="language-button active" type="button" data-language="en" aria-pressed="true">EN</button>
+      <button class="language-button" type="button" data-language="ru" aria-pressed="false">RU</button>
+    </div>
+
+    <a class="contact-float" href="#contact" aria-label="Go to contact section" data-i18n-aria="contactAria">
+      <span data-i18n="getInTouch">Get in touch</span> <span>↗</span>
     <a
       class="contact-float"
       href="#contact"
@@ -46,6 +53,9 @@ const skills = [
     <nav class="side-nav" aria-label="Page navigation">
       {
         sections.map((section) => (
+          <a href={`#${section.id}`} data-nav={section.id} aria-label={section.label} data-i18n-aria={`nav${section.id}`}>
+            <i></i>
+            <span>{section.number} / <span data-i18n={`nav${section.id}`}>{section.label}</span></span>
           <a
             href={`#${section.id}`}
             data-nav={section.id}
@@ -68,6 +78,7 @@ const skills = [
 
           <div class="hero-bottom">
             <p>{profile.intro}</p>
+            <a class="round-link" href="#work" aria-label="Go to projects" data-i18n-aria="projectsAria">↓</a>
 
             <a
               class="round-link"
@@ -84,6 +95,13 @@ const skills = [
       </section>
 
       <section id="about" class="panel about">
+        <div class="section-label"><span>02</span><p data-i18n="about">About</p></div>
+        <div class="about-layout">
+          <div class="about-statement">
+            <p data-i18n="aboutStatement">Backend systems for practical workflows, from API integrations to reliable automations.</p>
+          </div>
+          <div class="stats">
+            {profile.stats.map((stat) => <div><strong>{stat.value}</strong><span>{stat.label}</span></div>)}
         <div class="section-label">
           <span>02</span>
           <p>About</p>
@@ -111,6 +129,21 @@ const skills = [
 
         <div class="skill-summary" aria-label="Skills">
           <div class="skill-group">
+            <p data-i18n="buildingWith">Building with</p>
+            <div class="skill-list">{skills.map((skill) => <span>{skill}</span>)}</div>
+          </div>
+        </div>
+        <div class="plain-skills" aria-label="Full skills and languages">
+          <p data-i18n="skills">Skills</p>
+          <p>{profile.skills.join(' · ')}</p>
+          <p data-i18n="languages">Languages</p>
+          <p data-i18n="languagesList">Russian · English</p>
+        </div>
+        <div class="services">{profile.services.map((service, index) => <div><span>0{index + 1}</span><p>{service}</p></div>)}</div>
+      </section>
+
+      <section id="experience" class="panel experience">
+        <div class="section-label"><span>03</span><p data-i18n="experience">Experience</p></div>
             <p>Building with</p>
 
             <div class="skill-list">
@@ -164,6 +197,7 @@ const skills = [
       </section>
 
       <section id="work" class="panel work">
+        <div class="section-label"><span>04</span><p data-i18n="selectedProjects">Selected Projects</p></div>
         <div class="section-label">
           <span>04</span>
           <p>Selected Projects</p>
@@ -192,6 +226,10 @@ const skills = [
       </section>
 
       <section id="contact" class="panel contact">
+        <div class="section-label"><span>05</span><p data-i18n="contact">Contact</p></div>
+        <div class="contact-content">
+          <h2 data-i18n="contactHeading">Have an idea?<br />Let’s talk.</h2>
+          <a class="email-link" href={`mailto:${profile.email}`}>{profile.email} <span>↗</span></a>
         <div class="section-label">
           <span>05</span>
           <p>Contact</p>
@@ -225,6 +263,50 @@ const skills = [
 
     <script>
       const links = Array.from(document.querySelectorAll('[data-nav]'));
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) links.forEach((link) => link.classList.toggle('active', link.dataset.nav === entry.target.id));
+        });
+      }, { threshold: 0.45 });
+      document.querySelectorAll('main section[id]').forEach((section) => observer.observe(section));
+
+      const translations = {
+        en: {
+          getInTouch: 'Get in touch', contactAria: 'Go to contact section', projectsAria: 'Go to projects',
+          navtop: 'Home', navabout: 'About', navexperience: 'Experience', navwork: 'Projects', navcontact: 'Contact',
+          about: 'About', aboutStatement: 'Backend systems for practical workflows, from API integrations to reliable automations.',
+          buildingWith: 'Building with', skills: 'Skills', languages: 'Languages', languagesList: 'Russian · English',
+          experience: 'Experience', selectedProjects: 'Selected Projects', contact: 'Contact', contactHeading: 'Have an idea?<br />Let’s talk.'
+        },
+        ru: {
+          getInTouch: 'Связаться', contactAria: 'Перейти к разделу контактов', projectsAria: 'Перейти к проектам',
+          navtop: 'Главная', navabout: 'Обо мне', navexperience: 'Опыт', navwork: 'Проекты', navcontact: 'Контакты',
+          about: 'Обо мне', aboutStatement: 'Бэкенд-системы для практических задач: от API-интеграций до надёжной автоматизации.',
+          buildingWith: 'Работаю с', skills: 'Навыки', languages: 'Языки', languagesList: 'Русский · Английский',
+          experience: 'Опыт', selectedProjects: 'Избранные проекты', contact: 'Контакты', contactHeading: 'Есть идея?<br />Давайте обсудим.'
+        }
+      };
+
+      const setLanguage = (language) => {
+        const dictionary = translations[language];
+        document.documentElement.lang = language;
+        document.querySelectorAll('[data-i18n]').forEach((element) => {
+          element.innerHTML = dictionary[element.dataset.i18n];
+        });
+        document.querySelectorAll('[data-i18n-aria]').forEach((element) => {
+          element.setAttribute('aria-label', dictionary[element.dataset.i18nAria]);
+        });
+        document.querySelectorAll('[data-language]').forEach((button) => {
+          const active = button.dataset.language === language;
+          button.classList.toggle('active', active);
+          button.setAttribute('aria-pressed', String(active));
+        });
+        localStorage.setItem('portfolio-language', language);
+      };
+
+      const savedLanguage = localStorage.getItem('portfolio-language');
+      if (savedLanguage === 'ru') setLanguage('ru');
+      document.querySelectorAll('[data-language]').forEach((button) => button.addEventListener('click', () => setLanguage(button.dataset.language)));
 
       const observer = new IntersectionObserver(
         (entries) => {
