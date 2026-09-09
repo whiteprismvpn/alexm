@@ -61,7 +61,7 @@ const skills = [
 
     <main>
       <section id="top" class="hero panel">
-        <div class="hero-grid reveal">
+        <div class="hero-grid" style="opacity: 1 !important; visibility: visible !important; transform: none !important;">
           <p class="kicker">{profile.location}</p>
           <p class="hero-index">01 / 05</p>
           <h1>{profile.role}</h1>
@@ -117,9 +117,7 @@ const skills = [
           }
         </div>
         
-        <div class="about-services-footer">
-           <!-- Content continues... -->
-        </div>
+        <div class="about-services-footer"></div>
       </section>
 
       <section id="experience" class="panel experience">
@@ -242,7 +240,7 @@ const skills = [
     </style>
 
     <script>
-      import { initGridBackground, initCodeRain } from '../../scripts/visual-effects.js';
+      import { initGridBackground, initTooltips } from '../../scripts/visual-effects.js';
 
       function initNav() {
         const links = Array.from(document.querySelectorAll('[data-nav]'));
@@ -356,7 +354,7 @@ const skills = [
         document.querySelectorAll('.design-pill').forEach(pill => {
           pill.addEventListener('click', () => {
             const title = pill.dataset.project;
-            body.innerHTML = '<h2>' + title + '</h2><p>' + (projectData[title] || 'Системная архитектура: Высокодоступный бэкенд с масштабируемыми микросервисами и оптимизированными запросами к БД.') + '</p>';
+            body.innerHTML = '<h2 style="margin-top:0">' + title + '</h2><p>' + (projectData[title] || 'Системная архитектура: Высокодоступный бэкенд с масштабируемыми микросервисами и оптимизированными запросами к БД.') + '</p>';
             overlay.classList.add('active');
           });
         });
@@ -366,7 +364,7 @@ const skills = [
 
       function initVisuals() {
         initGridBackground();
-        initCodeRain();
+        initTooltips();
       }
 
       initNav(); initCursor(); initReveal(); initProgress(); initTerminal(); initModals();
