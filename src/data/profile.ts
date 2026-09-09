@@ -11,6 +11,24 @@ export const profile = {
     { value: 'APIs', label: 'integrations & services' },
     { value: 'MVPs', label: 'automation & delivery' }
   ],
+  skills: [
+    'Python',
+    'FastAPI',
+    'REST APIs',
+    'PostgreSQL',
+    'SQL',
+    'API integrations',
+    'Webhooks & event processing',
+    'Workflow automation',
+    'Database-backed CRUD apps',
+    'Authentication & access control',
+    'Docker & deployment workflows',
+    'Bug fixes & feature development',
+    'Telegram bots & notifications',
+    'SQLAlchemy',
+    'Cloudflare'
+  ],
+  languages: ['Russian', 'English'],
   services: [
     'Python backend development',
     'FastAPI & REST APIs',

@@ -1,6 +1,7 @@
 ---
 import { profile } from '../data/profile';
 import '../styles/portfolio.css';
+
 const sections = [
   { id: 'top', label: 'Home', number: '01' },
   { id: 'about', label: 'About', number: '02' },
@@ -8,7 +9,20 @@ const sections = [
   { id: 'work', label: 'Projects', number: '04' },
   { id: 'contact', label: 'Contact', number: '05' }
 ];
-const skills = ['Python', 'FastAPI', 'PostgreSQL', 'SQL', 'Telegram Bots', 'REST APIs', 'Docker', 'SQLAlchemy', 'Authentication', 'Webhooks', 'Cloudflare'];
+
+const skills = [
+  'Python',
+  'FastAPI',
+  'PostgreSQL',
+  'SQL',
+  'Telegram Bots',
+  'REST APIs',
+  'Docker',
+  'SQLAlchemy',
+  'Authentication',
+  'Webhooks',
+  'Cloudflare'
+];
 ---
 <!doctype html>
 <html lang="en">
@@ -50,6 +64,12 @@ const skills = ['Python', 'FastAPI', 'PostgreSQL', 'SQL', 'Telegram Bots', 'REST
             <p>Building with</p>
             <div class="skill-list">{skills.map((skill) => <span>{skill}</span>)}</div>
           </div>
+        </div>
+        <div aria-label="Full skills and languages">
+          <p>Skills</p>
+          <p>{profile.skills.join(' · ')}</p>
+          <p>Languages</p>
+          <p>{profile.languages.join(' · ')}</p>
         </div>
         <div class="services">{profile.services.map((service, index) => <div><span>0{index + 1}</span><p>{service}</p></div>)}</div>
       </section>
