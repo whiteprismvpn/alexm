@@ -61,7 +61,7 @@ const skills = [
 
     <main>
       <section id="top" class="hero panel">
-        <div class="hero-grid reveal">
+        <div class="hero-grid reveal active">
           <p class="kicker">{profile.location}</p>
           <p class="hero-index">01 / 05</p>
           <h1>{profile.role}</h1>
@@ -356,7 +356,7 @@ const skills = [
         document.querySelectorAll('.design-pill').forEach(pill => {
           pill.addEventListener('click', () => {
             const title = pill.dataset.project;
-            body.innerHTML = '<h2>' + title + '</h2><p>' + (projectData[title] || 'System architecture: Highly available backend with scalable microservices and optimized DB queries.') + '</p>';
+            body.innerHTML = '<h2 style="margin-top:0">' + title + '</h2><p>' + (projectData[title] || 'System architecture: Highly available backend with scalable microservices and optimized DB queries.') + '</p>';
             overlay.classList.add('active');
           });
         });
