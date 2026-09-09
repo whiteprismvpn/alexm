@@ -240,7 +240,7 @@ const skills = [
         for (let i = 0; i < 50; i++) particles.push(new Particle());
         
         function animate() {
-          ctx, ctx.clearRect(0, 0, width, height);
+          ctx.clearRect(0, 0, width, height);
           particles.forEach(p => {
             p.update();
             p.draw();
@@ -250,6 +250,7 @@ const skills = [
         animate();
       }
       function initNav() {
+
 
         const links = Array.from(document.querySelectorAll('[data-nav]'));
         const observer = new IntersectionObserver((entries) => {
