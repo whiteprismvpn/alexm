@@ -193,7 +193,10 @@ const skills = [
         <footer class="reveal">
           <div class="footer-cta">
             <p>Готовы масштабировать ваш бэкенд?</p>
-            <a href={`mailto:${profile.email}`} class="cta-button">Давайте работать вместе ↗</a>
+            <div class="cta-group">
+              <a href={`mailto:${profile.email}`} class="cta-button">Давайте работать вместе ↗</a>
+              <a href="/resume.pdf" download="Alex_Makletsov_Resume.pdf" class="cta-button secondary">Скачать CV 📄</a>
+            </div>
           </div>
           <div class="footer-bottom">
             <p>© {new Date().getFullYear()} {profile.name}</p>
