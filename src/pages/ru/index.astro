@@ -274,10 +274,12 @@ const skills = [
 
       function initReveal() {
         const observer = new IntersectionObserver((entries) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-          }
-        });
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+            }
+          });
+        }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
       }
 
@@ -306,7 +308,7 @@ const skills = [
           const line = document.createElement('div');
           line.className = 'terminal-line';
           if (isCommand) {
-            line.innerHTML = \`<span class="terminal-prompt">alexm@MacBook-Pro ~ %</span> \`;
+            line.innerHTML = '<span class="terminal-prompt">alexm@MacBook-Pro ~ %</span> ';
           }
           body.appendChild(line);
           
@@ -337,7 +339,7 @@ const skills = [
             } else if (commands[val]) {
               await typeText(commands[val]);
             } else if (val !== '') {
-              await typeText(\`<span style="color:#ff5f56">Команда не найдена: ${val}</span>\`);
+              await typeText('<span style="color:#ff5f56">Команда не найдена: ' + val + '</span>');
             }
           }
         });
@@ -354,7 +356,7 @@ const skills = [
         document.querySelectorAll('.design-pill').forEach(pill => {
           pill.addEventListener('click', () => {
             const title = pill.dataset.project;
-            body.innerHTML = \`<h2 style="margin-top:0">\${title}</h2><p>\${projectData[title] || 'Системная архитектура: Высокодоступный бэкенд с масштабируемыми микросервисами и оптимизированными запросами к БД.'}</p>\`;
+            body.innerHTML = '<h2>' + title + '</h2><p>' + (projectData[title] || 'Системная архитектура: Высокодоступный бэкенд с масштабируемыми микросервисами и оптимизированными запросами к БД.') + '</p>';
             overlay.classList.add('active');
           });
         });
