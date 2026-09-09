@@ -1,0 +1,153 @@
+
+/**
+ * Visual Effects for Portfolio
+ * 1. Interactive Grid Background (Canvas)
+ * 2. Code Rain / Log Stream on Hover
+ */
+
+export function initGridBackground() {
+    const canvas = document.createElement('canvas');
+    canvas.id = 'grid-background';
+    document.body.prepend(canvas);
+
+    const ctx = canvas.getContext('2d');
+    let width, height, particles;
+
+    const mouse = { x: null, y: null, radius: 150 };
+
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
+            this.radius = 1;
+        }
+
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            if (this.x < 0 || this.x > width) this.vx *= -1;
+            if (this.y < 0 || this.y > height) this.vy *= -1;
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(100, 100, 100, 0.3)'; 
+            ctx.fill();
+        }
+    }
+
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        initParticles();
+    }
+
+    function initParticles() {
+        particles = [];
+        const particleCount = Math.floor((width * height) / 15000);
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 100) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(150, 150, 150, ${1 - distance / 100})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+
+            // Mouse interaction
+            if (mouse.x !== null) {
+                const mdx = particles[i].x - mouse.x;
+                const mdy = particles[i].y - mouse.y;
+                const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+                if (mdist < mouse.radius) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${1 - mdist / mouse.radius})`;
+                    ctx.lineWidth = 1;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    animate();
+}
+
+export function initCodeRain() {
+    const logs = [
+        'GET /api/v1/user 200 OK',
+        'POST /api/v1/auth/login 201 Created',
+        'SELECT * FROM projects WHERE id=101',
+        'Connecting to PostgreSQL... Success',
+        'Worker process spawned: PID 4502',
+        'Cache HIT: user_session_882',
+        'FastAPI: Validating request body...',
+        'Cloudflare Worker: Edge execution started',
+        'Updating Redis key: global_stats',
+        'Queue worker: processing task_id_99',
+        'ERROR: Connection timeout at 192.168.1.1',
+        'DEBUG: Payload size: 1.2kb'
+    ];
+
+    const targets = document.querySelectorAll('.project, .skill-list span, .cta-button');
+
+    targets.forEach(target => {
+        // Ensure target is relative for absolute children
+        if (getComputedStyle(target).position === 'static') {
+            target.style.position = 'relative';
+        }
+        target.style.overflow = 'hidden';
+
+        target.addEventListener('mouseenter', () => {
+            const rainInterval = setInterval(() => {
+                if (!target.matches(':hover')) {
+                    clearInterval(rainInterval);
+                    return;
+                }
+
+                const log = document.createElement('div');
+                log.className = 'code-rain-line';
+                log.innerText = logs[Math.floor(Math.random() * logs.length)];
+                
+                // Random position, but away from edges
+                log.style.left = (Math.random() * 60 + 10) + '%';
+                log.style.top = (Math.random() * 60 + 10) + '%';
+                
+                target.appendChild(log);
+
+                setTimeout(() => log.remove(), 800);
+            }, 200);
+        });
+    });
+}
