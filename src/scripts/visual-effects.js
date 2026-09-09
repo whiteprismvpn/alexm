@@ -2,7 +2,7 @@
 /**
  * Visual Effects for Portfolio
  * 1. Interactive Grid Background (Canvas)
- * 2. Code Rain / Log Stream on Hover
+ * 2. Smart Tooltips for Skills and Projects
  */
 
 export function initGridBackground() {
@@ -81,7 +81,6 @@ export function initGridBackground() {
                 }
             }
 
-            // Mouse interaction
             if (mouse.x !== null) {
                 const mdx = particles[i].x - mouse.x;
                 const mdy = particles[i].y - mouse.y;
@@ -104,48 +103,57 @@ export function initGridBackground() {
     animate();
 }
 
-export function initCodeRain() {
-    const logs = [
-        'GET /api/v1/user 200 OK',
-        'POST /api/v1/auth/login 201 Created',
-        'SELECT * FROM projects WHERE id=101',
-        'Connecting to PostgreSQL... Success',
-        'Worker process spawned: PID 4502',
-        'Cache HIT: user_session_882',
-        'FastAPI: Validating request body...',
-        'Cloudflare Worker: Edge execution started',
-        'Updating Redis key: global_stats',
-        'Queue worker: processing task_id_99',
-        'ERROR: Connection timeout at 192.168.1.1',
-        'DEBUG: Payload size: 1.2kb'
-    ];
+export function initTooltips() {
+    const skillDescriptions = {
+        'Python': 'The core language for all my backend services',
+        'FastAPI': 'Modern, high-performance web framework for building APIs',
+        'PostgreSQL': 'Reliable relational database for structured data',
+        'SQL': 'Standard language for managing database queries',
+        'Telegram боты': 'Interactive bots for automation and notifications',
+        'Telegram bots': 'Interactive bots for automation and notifications',
+        'REST API': 'Standard architectural style for networked applications',
+        'Docker': 'Containerization for consistent deployment across environments',
+        'SQLAlchemy': 'Powerful SQL toolkit and ORM for Python',
+        'Аутентификация': 'Secure user access and session management',
+        'Authentication': 'Secure user access and session management',
+        'Webhooks': 'Real-time event-driven communication between services',
+        'Cloudflare': 'Edge computing and infrastructure security'
+    };
 
-    const targets = document.querySelectorAll('.project, .skill-list span, .cta-button');
+    const tooltip = document.createElement('div');
+    tooltip.className = 'custom-tooltip';
+    tooltip.style.position = 'fixed';
+    tooltip.style.padding = '6px 12px';
+    tooltip.style.background = 'var(--ink)';
+    tooltip.style.color = 'var(--paper)';
+    tooltip.style.fontSize = '12px';
+    tooltip.style.fontWeight = '500';
+    tooltip.style.borderRadius = '6px';
+    tooltip.style.pointerEvents = 'none';
+    tooltip.style.zIndex = '10000';
+    tooltip.style.opacity = '0';
+    tooltip.style.transition = 'opacity 0.2s ease';
+    tooltip.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+    document.body.appendChild(tooltip);
+
+    const targets = document.querySelectorAll('.skill-list span, .project');
 
     targets.forEach(target => {
-        target.style.position = 'relative';
-        target.style.overflow = 'hidden';
+        target.addEventListener('mouseenter', (e) => {
+            const text = target.innerText.trim();
+            const description = skillDescriptions[text] || 'Project detail: Click for architecture';
+            
+            tooltip.innerText = description;
+            tooltip.style.opacity = '1';
+        });
 
-        target.addEventListener('mouseenter', () => {
-            const rainInterval = setInterval(() => {
-                if (!target.matches(':hover')) {
-                    clearInterval(rainInterval);
-                    return;
-                }
+        target.addEventListener('mousemove', (e) => {
+            tooltip.style.left = (e.clientX + 15) + 'px';
+            tooltip.style.top = (e.clientY + 15) + 'px';
+        });
 
-                const log = document.createElement('div');
-                log.className = 'code-rain-line';
-                log.innerText = logs[Math.floor(Math.random() * logs.length)];
-                
-                // Random position inside the target
-                log.style.left = Math.random() * 80 + '%';
-                log.style.top = Math.random() * 80 + '%';
-                
-                target.appendChild(log);
-
-                // Remove after animation
-                setTimeout(() => log.remove(), 1000);
-            }, 150);
+        target.addEventListener('mouseleave', () => {
+            tooltip.style.opacity = '0';
         });
     });
 }
