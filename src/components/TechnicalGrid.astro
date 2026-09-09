@@ -1,0 +1,118 @@
+---
+const labels = [
+  { text: 'AVAILABLE', position: 'top-left' },
+  { text: 'PORTFOLIO_01', position: 'top-right' },
+  { text: '2026', position: 'bottom-left' },
+  { text: 'MSK', position: 'bottom-right' },
+];
+---
+
+<div class="technical-grid" aria-hidden="true">
+  <div class="technical-grid__glow"></div>
+  <div class="technical-grid__lines technical-grid__lines--vertical"></div>
+  <div class="technical-grid__lines technical-grid__lines--horizontal"></div>
+  <div class="technical-grid__dots"></div>
+  {labels.map(({ text, position }) => <span class={`technical-grid__label technical-grid__label--${position}`}>{text}</span>)}
+</div>
+
+<script>
+  const grid = document.querySelector<HTMLElement>('.technical-grid');
+
+  if (grid && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let frame: number | undefined;
+
+    window.addEventListener('pointermove', (event) => {
+      if (frame) cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        grid.style.setProperty('--pointer-x', `${event.clientX}px`);
+        grid.style.setProperty('--pointer-y', `${event.clientY}px`);
+      });
+    }, { passive: true });
+  }
+</script>
+
+<style>
+  .technical-grid {
+    --pointer-x: 50vw;
+    --pointer-y: 40vh;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background:
+      radial-gradient(460px circle at var(--pointer-x) var(--pointer-y), rgba(78, 124, 255, 0.13), transparent 62%),
+      radial-gradient(560px circle at 80% 16%, rgba(119, 225, 255, 0.055), transparent 64%);
+  }
+
+  .technical-grid__lines,
+  .technical-grid__dots,
+  .technical-grid__glow {
+    position: absolute;
+    inset: 0;
+  }
+
+  .technical-grid__lines {
+    opacity: 0;
+    animation: technical-grid-draw 1.15s cubic-bezier(.22, 1, .36, 1) forwards;
+  }
+
+  .technical-grid__lines--vertical {
+    background-image: repeating-linear-gradient(90deg, transparent 0, transparent 63px, rgba(136, 164, 255, 0.105) 64px, transparent 65px);
+    mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent);
+  }
+
+  .technical-grid__lines--horizontal {
+    background-image: repeating-linear-gradient(0deg, transparent 0, transparent 63px, rgba(136, 164, 255, 0.09) 64px, transparent 65px);
+    mask-image: linear-gradient(0deg, transparent, #000 16%, #000 84%, transparent);
+    animation-delay: 0.18s;
+  }
+
+  .technical-grid__dots {
+    opacity: 0.33;
+    background-image: radial-gradient(circle, rgba(166, 189, 255, 0.45) 1px, transparent 1.2px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(260px circle at var(--pointer-x) var(--pointer-y), #000 0, rgba(0,0,0,.55) 44%, transparent 100%);
+  }
+
+  .technical-grid__glow {
+    background: radial-gradient(180px circle at var(--pointer-x) var(--pointer-y), rgba(185, 211, 255, 0.24), transparent 68%);
+    mix-blend-mode: screen;
+  }
+
+  .technical-grid__label {
+    position: absolute;
+    color: rgba(174, 191, 246, 0.48);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    line-height: 1;
+  }
+
+  .technical-grid__label--top-left { top: 1.5rem; left: 1.5rem; }
+  .technical-grid__label--top-right { top: 1.5rem; right: 1.5rem; }
+  .technical-grid__label--bottom-left { bottom: 1.5rem; left: 1.5rem; }
+  .technical-grid__label--bottom-right { right: 1.5rem; bottom: 1.5rem; }
+
+  @keyframes technical-grid-draw {
+    from { opacity: 0; transform: scaleX(.82); }
+    to { opacity: 1; transform: scaleX(1); }
+  }
+
+  @media (max-width: 640px) {
+    .technical-grid__lines--vertical { background-image: repeating-linear-gradient(90deg, transparent 0, transparent 47px, rgba(136, 164, 255, 0.085) 48px, transparent 49px); }
+    .technical-grid__lines--horizontal { background-image: repeating-linear-gradient(0deg, transparent 0, transparent 47px, rgba(136, 164, 255, 0.075) 48px, transparent 49px); }
+    .technical-grid__dots { background-size: 48px 48px; }
+    .technical-grid__label { font-size: 0.54rem; letter-spacing: 0.13em; }
+    .technical-grid__label--top-left { top: 1rem; left: 1rem; }
+    .technical-grid__label--top-right { top: 1rem; right: 1rem; }
+    .technical-grid__label--bottom-left { bottom: 1rem; left: 1rem; }
+    .technical-grid__label--bottom-right { right: 1rem; bottom: 1rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .technical-grid__lines { animation: none; opacity: 1; }
+    .technical-grid__glow { display: none; }
+  }
+</style>
