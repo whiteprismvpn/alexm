@@ -59,7 +59,7 @@ const skills = [
 
     <main>
       <section id="top" class="hero panel">
-        <div class="hero-grid">
+        <div class="hero-grid reveal">
           <p class="kicker">{profile.location}</p>
           <p class="hero-index">01 / 05</p>
 
@@ -76,8 +76,8 @@ const skills = [
       </section>
 
       <section id="about" class="panel about">
-        <div class="section-label"><span>02</span><p>About</p></div>
-        <div class="about-layout">
+        <div class="section-label reveal"><span>02</span><p>About</p></div>
+        <div class="about-layout reveal">
           <div class="about-statement">
             <p>Backend systems for practical workflows, from API integrations to reliable automations.</p>
           </div>
@@ -121,12 +121,12 @@ const skills = [
       </section>
 
       <section id="experience" class="panel experience">
-        <div class="section-label">
+        <div class="section-label reveal">
           <span>03</span>
           <p>Experience</p>
         </div>
 
-        <div class="experience-list">
+        <div class="experience-list reveal">
           {
             profile.experience.map((item) => (
               <article class="experience-item">
@@ -145,12 +145,12 @@ const skills = [
       </section>
 
       <section id="work" class="panel work">
-        <div class="section-label">
+        <div class="section-label reveal">
           <span>04</span>
           <p>Selected Projects</p>
         </div>
 
-        <div class="project-list">
+        <div class="project-list reveal">
           {
             profile.projects.map((project, index) => (
               <article class={`project project-${index + 1}`}>
@@ -173,12 +173,12 @@ const skills = [
       </section>
 
       <section id="contact" class="panel contact">
-        <div class="section-label">
+        <div class="section-label reveal">
           <span>05</span>
           <p>Contact</p>
         </div>
 
-        <div class="contact-content">
+        <div class="contact-content reveal">
           <h2>
             Have an idea?
             <br />
@@ -190,15 +190,20 @@ const skills = [
           </a>
         </div>
 
-        <footer>
-          <p>© {new Date().getFullYear()} {profile.name}</p>
-
-          <div>
-            {
-              profile.social.map((item) => (
-                <a href={item.url}>{item.label} ↗</a>
-              ))
-            }
+        <footer class="reveal">
+          <div class="footer-cta">
+            <p>Ready to scale your backend?</p>
+            <a href={`mailto:${profile.email}`} class="cta-button">Let's work together ↗</a>
+          </div>
+          <div class="footer-bottom">
+            <p>© {new Date().getFullYear()} {profile.name}</p>
+            <div class="social-links">
+              {
+                profile.social.map((item) => (
+                  <a href={item.url}>{item.label} ↗</a>
+                ))
+              }
+            </div>
           </div>
         </footer>
       </section>
@@ -268,12 +273,26 @@ const skills = [
           el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
         });
       }
+
+      function initReveal() {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+            }
+          });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+      }
       
       initNav();
       initCursor();
+      initReveal();
       document.addEventListener('astro:page-load', () => {
         initNav();
         initCursor();
+        initReveal();
       });
     </script>
   </body>

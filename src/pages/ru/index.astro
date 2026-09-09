@@ -190,15 +190,20 @@ const skills = [
           </a>
         </div>
 
-        <footer>
-          <p>© {new Date().getFullYear()} {profile.name}</p>
-
-          <div>
-            {
-              profile.social.map((item) => (
-                <a href={item.url}>{item.label} ↗</a>
-              ))
-            }
+        <footer class="reveal">
+          <div class="footer-cta">
+            <p>Готовы масштабировать ваш бэкенд?</p>
+            <a href={`mailto:${profile.email}`} class="cta-button">Давайте работать вместе ↗</a>
+          </div>
+          <div class="footer-bottom">
+            <p>© {new Date().getFullYear()} {profile.name}</p>
+            <div class="social-links">
+              {
+                profile.social.map((item) => (
+                  <a href={item.url}>{item.label} ↗</a>
+                ))
+              }
+            </div>
           </div>
         </footer>
       </section>
