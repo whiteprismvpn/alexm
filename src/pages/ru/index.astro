@@ -1,13 +1,13 @@
 ---
-import { profile } from '../data/profile';
-import '../styles/portfolio.css';
+import { profile } from '../../data/profile.ru';
+import '../../styles/portfolio.css';
 
 const sections = [
-  { id: 'top', label: 'Home', number: '01' },
-  { id: 'about', label: 'About', number: '02' },
-  { id: 'experience', label: 'Experience', number: '03' },
-  { id: 'work', label: 'Projects', number: '04' },
-  { id: 'contact', label: 'Contact', number: '05' }
+  { id: 'top', label: 'Главная', number: '01' },
+  { id: 'about', label: 'Обо мне', number: '02' },
+  { id: 'experience', label: 'Опыт', number: '03' },
+  { id: 'work', label: 'Проекты', number: '04' },
+  { id: 'contact', label: 'Контакты', number: '05' }
 ];
 
 const skills = [
@@ -15,18 +15,18 @@ const skills = [
   'FastAPI',
   'PostgreSQL',
   'SQL',
-  'Telegram Bots',
-  'REST APIs',
+  'Telegram боты',
+  'REST API',
   'Docker',
   'SQLAlchemy',
-  'Authentication',
+  'Аутентификация',
   'Webhooks',
   'Cloudflare'
 ];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -35,11 +35,11 @@ const skills = [
   </head>
 
   <body>
-    <a class="contact-float" href="#contact" aria-label="Go to contact section">
-      Get in touch <span>↗</span>
+    <a class="contact-float" href="#contact" aria-label="Перейти к разделу контактов">
+      Связаться <span>↗</span>
     </a>
 
-    <nav class="side-nav" aria-label="Page navigation">
+    <nav class="side-nav" aria-label="Навигация по странице">
       {
         sections.map((section) => (
           <a href={\`#\${section.id}\`} aria-label={section.label}>
@@ -60,7 +60,7 @@ const skills = [
 
           <div class="hero-bottom">
             <p>{profile.intro}</p>
-            <a class="round-link" href="#work" aria-label="Go to projects">↓</a>
+            <a class="round-link" href="#work" aria-label="Перейти к проектам">↓</a>
           </div>
         </div>
 
@@ -69,10 +69,10 @@ const skills = [
       </section>
 
       <section id="about" class="panel about">
-        <div class="section-label"><span>02</span><p>About</p></div>
+        <div class="section-label"><span>02</span><p>Обо мне</p></div>
         <div class="about-layout">
           <div class="about-statement">
-            <p>Backend systems for practical workflows, from API integrations to reliable automations.</p>
+            <p>Бэкенд-системы для практических задач: от API-интеграций до надёжной автоматизации.</p>
           </div>
 
           <div class="stats">
@@ -87,17 +87,17 @@ const skills = [
           </div>
         </div>
 
-        <div class="skill-summary" aria-label="Skills">
+        <div class="skill-summary" aria-label="Навыки">
           <div class="skill-group">
-            <p>Building with</p>
+            <p>Работаю с</p>
             <div class="skill-list">{skills.map((skill) => <span>{skill}</span>)}</div>
           </div>
         </div>
 
-        <div class="plain-skills" aria-label="Full skills and languages">
-          <p>Skills</p>
+        <div class="plain-skills" aria-label="Полный список навыков и языков">
+          <p>Навыки</p>
           <p>{profile.skills.join(' · ')}</p>
-          <p>Languages</p>
+          <p>Языки</p>
           <p>{profile.languages.join(' · ')}</p>
         </div>
 
@@ -116,7 +116,7 @@ const skills = [
       <section id="experience" class="panel experience">
         <div class="section-label">
           <span>03</span>
-          <p>Experience</p>
+          <p>Опыт</p>
         </div>
 
         <div class="experience-list">
@@ -140,7 +140,7 @@ const skills = [
       <section id="work" class="panel work">
         <div class="section-label">
           <span>04</span>
-          <p>Selected Projects</p>
+          <p>Избранные проекты</p>
         </div>
 
         <div class="project-list">
@@ -168,14 +168,14 @@ const skills = [
       <section id="contact" class="panel contact">
         <div class="section-label">
           <span>05</span>
-          <p>Contact</p>
+          <p>Контакты</p>
         </div>
 
         <div class="contact-content">
           <h2>
-            Have an idea?
+            Есть идея?
             <br />
-            Let’s talk.
+            Давайте обсудим.
           </h2>
 
           <a class="email-link" href={\`mailto:\${profile.email}\`}>
