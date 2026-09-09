@@ -239,6 +239,13 @@ const skills = [
               links.forEach((link) => {
                 link.classList.toggle('active', link.dataset.nav === entry.target.id);
               });
+              
+              // Динамически меняем фон навигации в зависимости от секции
+              const nav = document.querySelector('.side-nav');
+              if (nav) {
+                const bgColor = window.getComputedStyle(entry.target).backgroundColor;
+                nav.style.backgroundColor = bgColor;
+              }
             }
           });
         }, { threshold: 0.45 });
