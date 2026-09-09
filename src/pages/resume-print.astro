@@ -1,0 +1,135 @@
+---
+import { profile } from '../data/profile';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Resume - {profile.name}</title>
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        color: #151515;
+        background: white;
+        margin: 0;
+        padding: 40px;
+        line-height: 1.5;
+      }
+      .header {
+        border-bottom: 2px solid #151515;
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 28px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .header-info {
+        text-align: right;
+        font-size: 12px;
+      }
+      .section {
+        margin-bottom: 25px;
+      }
+      .section-title {
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 10px;
+        color: #555;
+      }
+      .item {
+        margin-bottom: 15px;
+      }
+      .item-header {
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+        font-size: 14px;
+      }
+      .item-sub {
+        font-style: italic;
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 5px;
+      }
+      .item-text {
+        font-size: 13px;
+        text-align: justify;
+      }
+      .skills-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        font-size: 13px;
+      }
+      @media print {
+        body { padding: 0; }
+        .no-print { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="no-print" style="background: #f1f0eb; padding: 20px; text-align: center; border-bottom: 1px solid #ddd;">
+      <p>Press <b>Ctrl + P</b> (or Cmd + P) and save as PDF</p>
+      <button onclick="window.print()" style="padding: 10px 20px; cursor: pointer;">Print to PDF</button>
+    </div>
+
+    <div class="header">
+      <div>
+        <h1>{profile.name}</h1>
+        <p style="margin: 5px 0 0 0; font-size: 16px;">{profile.role}</p>
+      </div>
+      <div class="header-info">
+        <p>{profile.location}</p>
+        <p>{profile.email}</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Professional Summary</div>
+      <p class="item-text">{profile.intro}</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Experience</div>
+      {profile.experience.map(exp => (
+        <div class="item">
+          <div class="item-header">
+            <span>{exp.role}</span>
+            <span>{exp.period}</span>
+          </div>
+          <div class="item-sub">{exp.company}</div>
+          <p class="item-text">{exp.text}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="section">
+      <div class="section-title">Selected Projects</div>
+      {profile.projects.map(proj => (
+        <div class="item">
+          <div class="item-header">
+            <span>{proj.title}</span>
+            <span>{proj.type}</span>
+          </div>
+          <p class="item-text">{proj.text} - <strong>{proj.metric}</strong></p>
+        </div>
+      ))}
+    </div>
+
+    <div class="section">
+      <div class="section-title">Technical Skills</div>
+      <div class="skills-grid">
+        <div><strong>Languages/Frameworks:</strong> {profile.skills.join(', ')}</div>
+        <div><strong>Other:</strong> {profile.languages.join(', ')}</div>
+      </div>
+    </div>
+  </body>
+</html>
