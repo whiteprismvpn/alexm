@@ -63,11 +63,14 @@ const skills = [
         <div class="hero-grid reveal">
           <p class="kicker">{profile.location}</p>
           <p class="hero-index">01 / 05</p>
+
           <h1>{profile.role}</h1>
+
           <div class="hero-bottom">
             <p>{profile.intro}</p>
             <a class="round-link" href="#work" aria-label="Перейти к проектам">↓</a>
           </div>
+
           <div class="hero-shape shape-one"></div>
           <div class="hero-shape shape-two"></div>
         </div>
@@ -79,6 +82,7 @@ const skills = [
           <div class="about-statement">
             <p>Бэкенд-системы для практических задач: от API-интеграций до надёжной автоматизации.</p>
           </div>
+
           <div class="stats">
             {
               profile.stats.map((stat) => (
@@ -144,10 +148,12 @@ const skills = [
             profile.experience.map((item) => (
               <article class="experience-item">
                 <p class="period">{item.period}</p>
+
                 <div>
                   <h3>{item.role}</h3>
                   <p class="company">{item.company}</p>
                 </div>
+
                 <p class="experience-text">{item.text}</p>
               </article>
             ))
@@ -168,11 +174,13 @@ const skills = [
                 <div class="project-top">
                   <span>{project.type}</span><span>0{index + 1}</span>
                 </div>
+
                 <div class="project-copy">
                   <h3>{project.title}</h3>
                   <p>{project.text}</p>
                   <strong class="design-pill" style="cursor:pointer" data-project={project.title}>Архитектура ↗</strong>
                 </div>
+
                 <span class="project-arrow">↗</span>
               </article>
             ))
@@ -192,6 +200,7 @@ const skills = [
             <br />
             Давайте обсудим.
           </h2>
+
           <a class="email-link" href={`mailto:${profile.email}`}>
             {profile.email} <span>↗</span>
           </a>
