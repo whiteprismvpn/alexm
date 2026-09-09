@@ -205,32 +205,44 @@ const skills = [
       .top-controls {
         position: fixed;
         top: 20px;
-        right: 20px;
+        left: 20px;
         z-index: 100;
       }
       .lang-switch {
         text-decoration: none;
-        color: var(--black);
+        color: var(--ink);
         font-weight: bold;
         padding: 0.5em 1em;
-        border: 1px solid var(--black);
+        border: 1px solid var(--ink);
         border-radius: 4px;
         transition: 0.2s ease;
+        background: var(--paper);
       }
       .lang-switch:hover {
-        background: var(--black);
-        color: white;
+        background: var(--ink);
+        color: var(--paper);
       }
     </style>
 
     <script>
-      const links = Array.from(document.querySelectorAll('[data-nav]'));
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) links.forEach((link) => link.classList.toggle('active', link.dataset.nav === entry.target.id));
-        });
-      }, { threshold: 0.45 });
-      document.querySelectorAll('main section[id]').forEach((section) => observer.observe(section));
+      function initNav() {
+        const links = Array.from(document.querySelectorAll('[data-nav]'));
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              links.forEach((link) => {
+                link.classList.toggle('active', link.dataset.nav === entry.target.id);
+              });
+            }
+          });
+        }, { threshold: 0.45 });
+        document.querySelectorAll('main section[id]').forEach((section) => observer.observe(section));
+      }
+      
+      // Run on load
+      initNav();
+      // Also run on Astro page transitions if any
+      document.addEventListener('astro:page-load', initNav);
     </script>
   </body>
 </html>
