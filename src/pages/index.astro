@@ -35,8 +35,11 @@ const skills = [
   </head>
 
   <body>
-    <div class="top-controls">
-      <a href="/ru" class="lang-switch">RU</a>
+    <div class="lang-pill-container">
+      <div class="lang-pill">
+        <a href="/" class="lang-item active">EN</a>
+        <a href="/ru" class="lang-item">RU</a>
+      </div>
     </div>
 
     <a class="contact-float" href="#contact" aria-label="Go to contact section">
@@ -202,25 +205,36 @@ const skills = [
     </main>
 
     <style>
-      .top-controls {
+      .lang-pill-container {
         position: fixed;
         top: 20px;
         left: 20px;
         z-index: 100;
       }
-      .lang-switch {
+      .lang-pill {
+        display: flex;
+        border: 1px solid var(--ink);
+        border-radius: 999px;
+        background: var(--paper);
+        overflow: hidden;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+      .lang-item {
+        padding: 6px 12px;
         text-decoration: none;
         color: var(--ink);
-        font-weight: bold;
-        padding: 0.5em 1em;
-        border: 1px solid var(--ink);
-        border-radius: 4px;
-        transition: 0.2s ease;
-        background: var(--paper);
+        transition: all 0.2s ease;
+        cursor: pointer;
       }
-      .lang-switch:hover {
+      .lang-item.active {
         background: var(--ink);
-        color: var(--paper);
+        color: var(--acid);
+      }
+      .lang-item:hover:not(.active) {
+        background: rgba(21, 21, 21, 0.05);
       }
     </style>
 
@@ -239,9 +253,7 @@ const skills = [
         document.querySelectorAll('main section[id]').forEach((section) => observer.observe(section));
       }
       
-      // Run on load
       initNav();
-      // Also run on Astro page transitions if any
       document.addEventListener('astro:page-load', initNav);
     </script>
   </body>
