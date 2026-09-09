@@ -134,7 +134,11 @@ const skills = [
       </section>
 
       <section id="experience" class="panel experience">
-        <div class="section-label reveal"><span>03</span><p>Опыт</p></div>
+        <div class="section-label reveal">
+          <span>03</span>
+          <p>Опыт</p>
+        </div>
+
         <div class="experience-list reveal">
           {
             profile.experience.map((item) => (
@@ -152,7 +156,11 @@ const skills = [
       </section>
 
       <section id="work" class="panel work">
-        <div class="section-label reveal"><span>04</span><p>Избранные проекты</p></div>
+        <div class="section-label reveal">
+          <span>04</span>
+          <p>Избранные проекты</p>
+        </div>
+
         <div class="project-list reveal">
           {
             profile.projects.map((project, index) => (
@@ -173,11 +181,22 @@ const skills = [
       </section>
 
       <section id="contact" class="panel contact">
-        <div class="section-label reveal"><span>05</span><p>Контакты</p></div>
-        <div class="contact-content reveal">
-          <h2>Есть идея?<br />Давайте обсудим.</h2>
-          <a class="email-link" href={`mailto:${profile.email}`}>{profile.email} <span>↗</span></a>
+        <div class="section-label reveal">
+          <span>05</span>
+          <p>Контакты</p>
         </div>
+
+        <div class="contact-content reveal">
+          <h2>
+            Есть идея?
+            <br />
+            Давайте обсудим.
+          </h2>
+          <a class="email-link" href={`mailto:${profile.email}`}>
+            {profile.email} <span>↗</span>
+          </a>
+        </div>
+
         <footer class="reveal">
           <div class="footer-cta">
             <p>Готовы масштабировать ваш бэкенд?</p>
@@ -244,15 +263,8 @@ const skills = [
               });
               const nav = document.querySelector('.side-nav');
               if (nav) {
-                const bgColor = window.getComputedStyle(entry.// entries) => {
-                const observer = new IntersectionObserver((entries) => {
-                  entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                      entry.target.classList.add('active');
-                    }
-                  });
-                }, { threshold: 0.1 });
-                document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+                const bgColor = window.getComputedStyle(entry.target).backgroundColor;
+                nav.style.backgroundColor = bgColor;
               }
             }
           });
@@ -266,7 +278,7 @@ const skills = [
           cursor.style.left = e.clientX + 'px';
           cursor.style.top = e.clientY + 'px';
         });
-        const hoverables = document.querySelectorAll('a, button, .round-// a, button, .round-link, .project, .design-pill');
+        const hoverables = document.querySelectorAll('a, button, .round-link, .project, .design-pill');
         hoverables.forEach(el => {
           el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
           el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
