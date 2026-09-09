@@ -351,6 +351,8 @@ const skills = [
           }
         });
       }
+    <script>
+      // ... other init functions ...
       function initModals() {
         const overlay = document.getElementById('modal-overlay');
         const close = document.getElementById('modal-close');
@@ -379,14 +381,12 @@ const skills = [
 
           let svg = `<svg viewBox="0 0 450 250" style="width:100%; height:auto; max-width:500px; margin: 20px auto; display:block; background:#1c1c1c; border-radius:12px; padding:20px; box-sizing:border-box; color:#fff; font-family:monospace">`;
           
-          // Edges
           arch.edges.forEach(edge => {
             const fromNode = arch.nodes.find(n => n.id === edge.from);
             const toNode = arch.nodes.find(n => n.id === edge.to);
             svg += `<line x1="${fromNode.x}" y1="${fromNode.y}" x2="${toNode.x}" y2="${toNode.y}" stroke="#444" stroke-width="2" marker-end="url(#arrowhead)" />`;
           });
 
-          // Nodes
           arch.nodes.forEach(node => {
             svg += `
               <g class="arch-node" data-desc="${node.desc}" style="cursor:pointer">
@@ -402,13 +402,34 @@ const skills = [
         }
 
         document.querySelectorAll('.design-pill').forEach(pill => {
-          pill.addEventListener('click', () => {
+          pill.addEventListener('click', (e) => {
             const title = pill.dataset.project;
-            body.innerHTML = `<h2 style="margin-top:0">${title}</h2>${renderArchitecture(title)}`;
             
-            // Add interactivity to the SVG
-            const nodes = body.querySelectorAll('.arch-node');
-            const descBox = body.querySelector('#arch-desc');
+            // create popup instead of modal
+            const popup = document.createElement('div');
+            popup.className = 'design-popup';
+            popup.innerHTML = `
+              <div class="popup-header">
+                <span>Architecture: ${title}</span>
+                <span class="popup-close" style="cursor:pointer">×</span>
+              </div>
+              <div class="popup-body">
+                ${renderArchitecture(title)}
+              </div>
+            `;
+            
+            // Position popup relative to button
+            const rect = pill.getBoundingClientRect();
+            popup.style.position = 'fixed';
+            popup.style.top = `${rect.bottom + window.scrollY + 10}px`;
+            popup.style.left = `${rect.left + window.scrollX}px`;
+            popup.style.zIndex = '1000';
+            
+            document.body.appendChild(popup);
+            
+            // Add interactivity to the SVG inside popup
+            const nodes = popup.querySelectorAll('.arch-node');
+            const descBox = popup.querySelector('#arch-desc');
             nodes.forEach(node => {
               node.addEventListener('mouseenter', () => {
                 const desc = node.getAttribute('data-desc');
@@ -425,12 +446,22 @@ const skills = [
               });
             });
 
-            overlay.classList.add('active');
+            popup.querySelector('.popup-close').addEventListener('click', () => popup.remove());
+            
+            // Close on click outside
+            const closePopup = (event) => {
+              if (!popup.contains(event.target) && event.target !== pill) {
+                popup.remove();
+                document.removeEventListener('mousedown', closePopup);
+              }
+            };
+            document.addEventListener('mousedown', closePopup);
           });
         });
         close.addEventListener('click', () => overlay.classList.remove('active'));
         overlay.addEventListener('click', (e) => { if(e.target === overlay) overlay.classList.remove('active'); });
       }
+
       initNav(); initCursor(); initReveal(); initProgress(); initModals(); initDataFlow();
       document.addEventListener('astro:page-load', () => {
         initNav(); initCursor(); initReveal(); initProgress(); initModals(); initDataFlow();
