@@ -34,7 +34,8 @@ const skills = [
     <title>{profile.name} — {profile.role}</title>
   </head>
 
-  <body>
+  <body style="cursor: none;">
+    <div class="custom-cursor"></div>
     <div class="lang-switcher-simple">
       <a href="/" class="lang-link">en</a>
       <span class="lang-sep">/</span>
@@ -252,8 +253,28 @@ const skills = [
         document.querySelectorAll('main section[id]').forEach((section) => observer.observe(section));
       }
       
+      function initCursor() {
+        const cursor = document.querySelector('.custom-cursor');
+        if (!cursor) return;
+
+        document.addEventListener('mousemove', (e) => {
+          cursor.style.left = e.clientX + 'px';
+          cursor.style.top = e.clientY + 'px';
+        });
+
+        const hoverables = document.querySelectorAll('a, button, .round-link, .project');
+        hoverables.forEach(el => {
+          el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+          el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+      }
+      
       initNav();
-      document.addEventListener('astro:page-load', initNav);
+      initCursor();
+      document.addEventListener('astro:page-load', () => {
+        initNav();
+        initCursor();
+      });
     </script>
   </body>
 </html>
