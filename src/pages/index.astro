@@ -61,7 +61,6 @@ const skills = [
 
     <main>
       <section id="top" class="hero panel">
-        <!-- Убрал класс reveal, чтобы контент был виден ВСЕГДА -->
         <div class="hero-grid" style="opacity: 1 !important; visibility: visible !important; transform: none !important;">
           <p class="kicker">{profile.location}</p>
           <p class="hero-index">01 / 05</p>
@@ -243,7 +242,7 @@ const skills = [
     </style>
 
     <script>
-      import { initGridBackground, initCodeRain } from '../scripts/visual-effects.js';
+      import { initGridBackground, initTooltips } from '../scripts/visual-effects.js';
 
       function initNav() {
         const links = Array.from(document.querySelectorAll('[data-nav]'));
@@ -367,7 +366,7 @@ const skills = [
 
       function initVisuals() {
         initGridBackground();
-        initCodeRain();
+        initTooltips();
       }
 
       initNav(); initCursor(); initReveal(); initProgress(); initTerminal(); initModals();
