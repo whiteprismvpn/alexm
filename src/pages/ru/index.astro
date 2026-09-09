@@ -120,13 +120,14 @@ const skills = [
           <div class="terminal-window">
             <div class="terminal-header">
               <div class="terminal-dot"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
-              <span class="terminal-title">bash — alexm@portfolio</span>
+              <span class="terminal-title">zsh — alexm@MacBook-Pro</span>
             </div>
             <div class="terminal-body" id="terminal-body">
+              <div style="margin-bottom: 10px; opacity: 0.8; font-family: sans-serif; font-size: 12px;">Последний вход: Ср окт 23 14:20:11 на ttys001</div>
               <div>Добро пожаловать в alexm-shell v1.0.0. Введите <span style="color:var(--acid)">'help'</span> для списка команд.</div>
             </div>
             <div class="terminal-input-line">
-              <span class="terminal-prompt">guest@alexm:~$</span>
+              <span class="terminal-prompt">alexm@MacBook-Pro ~ %</span>
               <input type="text" class="terminal-input" id="terminal-input" autocomplete="off">
             </div>
           </div>
@@ -318,7 +319,7 @@ const skills = [
           const line = document.createElement('div');
           line.className = 'terminal-line';
           if (isCommand) {
-            line.innerHTML = `<span class="terminal-prompt">guest@alexm:~$</span> `;
+            line.innerHTML = `<span class="terminal-prompt">alexm@MacBook-Pro ~ %</span> `;
           }
           body.appendChild(line);
           
