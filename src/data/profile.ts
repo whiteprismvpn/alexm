@@ -11,6 +11,7 @@ export const profile = {
     { value: 'APIs', label: 'integrations & services' },
     { value: 'MVPs', label: 'automation & delivery' }
   ],
+
   skills: [
     'Python',
     'FastAPI',

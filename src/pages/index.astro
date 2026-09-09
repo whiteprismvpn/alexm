@@ -42,6 +42,12 @@ const skills = [
 
     <a class="contact-float" href="#contact" aria-label="Go to contact section" data-i18n-aria="contactAria">
       <span data-i18n="getInTouch">Get in touch</span> <span>↗</span>
+    <a
+      class="contact-float"
+      href="#contact"
+      aria-label="Go to contact section"
+    >
+      Get in touch <span>↗</span>
     </a>
 
     <nav class="side-nav" aria-label="Page navigation">
@@ -50,6 +56,13 @@ const skills = [
           <a href={`#${section.id}`} data-nav={section.id} aria-label={section.label} data-i18n-aria={`nav${section.id}`}>
             <i></i>
             <span>{section.number} / <span data-i18n={`nav${section.id}`}>{section.label}</span></span>
+          <a
+            href={`#${section.id}`}
+            data-nav={section.id}
+            aria-label={section.label}
+          >
+            <i></i>
+            <span>{section.number} / {section.label}</span>
           </a>
         ))
       }
@@ -60,12 +73,23 @@ const skills = [
         <div class="hero-grid">
           <p class="kicker">{profile.location}</p>
           <p class="hero-index">01 / 05</p>
+
           <h1>{profile.role}</h1>
+
           <div class="hero-bottom">
             <p>{profile.intro}</p>
             <a class="round-link" href="#work" aria-label="Go to projects" data-i18n-aria="projectsAria">↓</a>
+
+            <a
+              class="round-link"
+              href="#work"
+              aria-label="Go to projects"
+            >
+              ↓
+            </a>
           </div>
         </div>
+
         <div class="hero-shape shape-one"></div>
         <div class="hero-shape shape-two"></div>
       </section>
@@ -78,8 +102,31 @@ const skills = [
           </div>
           <div class="stats">
             {profile.stats.map((stat) => <div><strong>{stat.value}</strong><span>{stat.label}</span></div>)}
+        <div class="section-label">
+          <span>02</span>
+          <p>About</p>
+        </div>
+
+        <div class="about-layout">
+          <div class="about-statement">
+            <p>
+              Backend systems for practical workflows, from API integrations
+              to reliable automations.
+            </p>
+          </div>
+
+          <div class="stats">
+            {
+              profile.stats.map((stat) => (
+                <div>
+                  <strong>{stat.value}</strong>
+                  <span>{stat.label}</span>
+                </div>
+              ))
+            }
           </div>
         </div>
+
         <div class="skill-summary" aria-label="Skills">
           <div class="skill-group">
             <p data-i18n="buildingWith">Building with</p>
@@ -97,15 +144,84 @@ const skills = [
 
       <section id="experience" class="panel experience">
         <div class="section-label"><span>03</span><p data-i18n="experience">Experience</p></div>
+            <p>Building with</p>
+
+            <div class="skill-list">
+              {skills.map((skill) => <span>{skill}</span>)}
+            </div>
+          </div>
+        </div>
+
+        <div aria-label="Full skills and languages">
+          <p>Skills</p>
+          <p>{profile.skills.join(' · ')}</p>
+
+          <p>Languages</p>
+          <p>{profile.languages.join(' · ')}</p>
+        </div>
+
+        <div class="services">
+          {
+            profile.services.map((service, index) => (
+              <div>
+                <span>0{index + 1}</span>
+                <p>{service}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <section id="experience" class="panel experience">
+        <div class="section-label">
+          <span>03</span>
+          <p>Experience</p>
+        </div>
+
         <div class="experience-list">
-          {profile.experience.map((item) => <article class="experience-item"><p class="period">{item.period}</p><div><h3>{item.role}</h3><p class="company">{item.company}</p></div><p class="experience-text">{item.text}</p></article>)}
+          {
+            profile.experience.map((item) => (
+              <article class="experience-item">
+                <p class="period">{item.period}</p>
+
+                <div>
+                  <h3>{item.role}</h3>
+                  <p class="company">{item.company}</p>
+                </div>
+
+                <p class="experience-text">{item.text}</p>
+              </article>
+            ))
+          }
         </div>
       </section>
 
       <section id="work" class="panel work">
         <div class="section-label"><span>04</span><p data-i18n="selectedProjects">Selected Projects</p></div>
+        <div class="section-label">
+          <span>04</span>
+          <p>Selected Projects</p>
+        </div>
+
         <div class="project-list">
-          {profile.projects.map((project, index) => <article class={`project project-${index + 1}`}><div class="project-top"><span>{project.type}</span><span>0{index + 1}</span></div><div class="project-copy"><h3>{project.title}</h3><p>{project.text}</p><strong>{project.metric}</strong></div><span class="project-arrow">↗</span></article>)}
+          {
+            profile.projects.map((project, index) => (
+              <article class={`project project-${index + 1}`}>
+                <div class="project-top">
+                  <span>{project.type}</span>
+                  <span>0{index + 1}</span>
+                </div>
+
+                <div class="project-copy">
+                  <h3>{project.title}</h3>
+                  <p>{project.text}</p>
+                  <strong>{project.metric}</strong>
+                </div>
+
+                <span class="project-arrow">↗</span>
+              </article>
+            ))
+          }
         </div>
       </section>
 
@@ -114,10 +230,33 @@ const skills = [
         <div class="contact-content">
           <h2 data-i18n="contactHeading">Have an idea?<br />Let’s talk.</h2>
           <a class="email-link" href={`mailto:${profile.email}`}>{profile.email} <span>↗</span></a>
+        <div class="section-label">
+          <span>05</span>
+          <p>Contact</p>
         </div>
+
+        <div class="contact-content">
+          <h2>
+            Have an idea?
+            <br />
+            Let’s talk.
+          </h2>
+
+          <a class="email-link" href={`mailto:${profile.email}`}>
+            {profile.email} <span>↗</span>
+          </a>
+        </div>
+
         <footer>
           <p>© {new Date().getFullYear()} {profile.name}</p>
-          <div>{profile.social.map((item) => <a href={item.url}>{item.label} ↗</a>)}</div>
+
+          <div>
+            {
+              profile.social.map((item) => (
+                <a href={item.url}>{item.label} ↗</a>
+              ))
+            }
+          </div>
         </footer>
       </section>
     </main>
@@ -168,6 +307,26 @@ const skills = [
       const savedLanguage = localStorage.getItem('portfolio-language');
       if (savedLanguage === 'ru') setLanguage('ru');
       document.querySelectorAll('[data-language]').forEach((button) => button.addEventListener('click', () => setLanguage(button.dataset.language)));
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              links.forEach((link) =>
+                link.classList.toggle(
+                  'active',
+                  link.dataset.nav === entry.target.id
+                )
+              );
+            }
+          });
+        },
+        { threshold: 0.45 }
+      );
+
+      document
+        .querySelectorAll('main section[id]')
+        .forEach((section) => observer.observe(section));
     </script>
   </body>
 </html>
